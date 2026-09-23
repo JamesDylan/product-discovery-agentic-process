@@ -1,0 +1,660 @@
+<title>Reduce Churn Playback</title>
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#f3f0e9; --surface:#fffdf8; --ink:#17211f;
+    --ink-70:#46514e; --ink-70-alt:#4f5d57; --muted:#66706d;
+    --rule:#cfc9be; --rule-dark:#4b5552; --rule-sage:#aab8ad;
+    --forest:#1f5146; --coral:#e9684b; --gold:#f4d073; --gold-alt:#e8c766; --blush:#f4d3c8;
+    --sage:#dfe8df; --sand:#e9e3d8; --mint-hover:#d9e7df; --mint-text:#bcd3c7;
+    --on-ink-1:#fffdf8; --on-ink-2:#d9dddb; --on-ink-3:#c2c9c6; --on-ink-4:#aab4b0; --on-ink-5:#b4bfbb;
+    --badge-dark:#73807c;
+    --header-bg:rgba(243,240,233,0.94);
+    --dot-grid:rgba(31,81,70,0.13);
+    --gutter:96px; --indent:80px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-size:15px; line-height:1.55;
+  }
+  h1,h2,h3,.serif{font-family:Georgia,serif; font-weight:500; margin:0}
+  ::selection{color:var(--ink); background:var(--blush)}
+  a{color:var(--forest); text-decoration:underline}
+  a:hover{color:var(--coral)}
+  main,footer{max-width:1480px; margin:0 auto}
+  section{padding:100px var(--gutter); border-top:1px solid var(--rule)}
+  section:first-of-type{border-top:none}
+  .ground-paper{background:var(--paper)}
+  .ground-surface{background:var(--surface)}
+  .ground-ink{background:var(--ink); color:var(--on-ink-3); border-top-color:var(--rule-dark)}
+  .ground-sage{background:var(--sage)}
+  .ground-sand{background:var(--sand)}
+  .ground-ink a{color:var(--mint-text)}
+  .ground-ink a:hover{color:var(--gold)}
+
+  /* C1 sticky header */
+  header.top{
+    position:sticky; top:0; z-index:20; height:70px; padding:0 72px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    background:var(--header-bg); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--rule);
+  }
+  .wordmark{font-family:Georgia,serif; font-weight:700; font-size:21px; letter-spacing:-0.01em; white-space:nowrap}
+  .wordmark span{color:var(--forest)}
+  nav.topnav{display:flex; gap:22px; flex-wrap:wrap}
+  nav.topnav a{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); text-decoration:none; white-space:nowrap}
+  nav.topnav a:hover{color:var(--forest)}
+  .meta-line{font-size:12px; color:var(--muted); white-space:nowrap; display:none}
+
+  /* C2 pill toggle */
+  .pill{
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:12px; font-weight:700;
+    letter-spacing:.05em; text-transform:uppercase; color:var(--surface); background:var(--forest);
+    border:none; border-radius:100px; padding:10px 20px; cursor:pointer; white-space:nowrap;
+  }
+  .pill:hover{background:var(--coral)}
+
+  /* C3 hero */
+  .hero{padding:110px var(--gutter) 70px; min-height:400px; position:relative; overflow:hidden}
+  .hero-inner{max-width:1080px; position:relative; z-index:1}
+  .eyebrow{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--forest); margin-bottom:22px}
+  .hero h1{font-size:76px; line-height:.98; letter-spacing:-.045em; max-width:1080px}
+  .hero h1 em{font-style:normal; color:var(--forest)}
+  .hero-deck{font-size:21px; line-height:1.45; color:var(--ink-70); max-width:740px; margin-top:28px}
+  .dot-grid{
+    position:absolute; right:-120px; top:-60px; width:640px; height:640px; border-radius:50%;
+    background-image:radial-gradient(var(--dot-grid) 1.6px, transparent 1.6px);
+    background-size:16px 16px; z-index:0; opacity:.9;
+  }
+
+  /* C4 stat strip */
+  .stat-strip{border-top:1px solid var(--ink); margin-top:54px; padding-top:28px; display:flex; gap:38px; flex-wrap:wrap}
+  .stat{flex:1; min-width:190px}
+  .stat .v{font-family:Georgia,serif; font-weight:500; font-size:30px; letter-spacing:-.02em}
+  .stat .q{font-size:12px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-top:2px}
+  .stat .c{font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.5}
+
+  /* C5 verdict band */
+  .verdict{background:var(--forest); color:var(--on-ink-1); margin:0 40px; padding:48px 54px; display:grid; grid-template-columns:180px 1fr; gap:30px}
+  .verdict .eyebrow{color:var(--mint-text)}
+  .verdict-badge{width:42px; height:42px; border-radius:50%; border:1px solid var(--badge-dark); display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:14px; color:var(--on-ink-1)}
+  .verdict p{font-family:Georgia,serif; font-weight:500; font-size:34px; line-height:1.22; letter-spacing:-.02em; margin-top:10px}
+  .verdict strong{color:var(--gold); font-weight:500}
+  .verdict details{margin-top:26px}
+  .verdict details summary{color:var(--on-ink-1)}
+  .verdict .reveal{color:var(--on-ink-2)}
+  .verdict .reveal li{margin-bottom:8px}
+
+  /* C6 section header */
+  .sec-head{display:grid; grid-template-columns:62px 1fr; gap:18px; margin-bottom:50px}
+  .badge{width:42px; height:42px; border-radius:50%; border:1px solid var(--rule-dark); display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:14px; color:var(--forest)}
+  .ground-ink .badge{border-color:var(--badge-dark); color:var(--gold)}
+  .sec-head h2{font-size:50px; line-height:1; letter-spacing:-.035em}
+  .sec-deck{font-size:17px; line-height:1.5; color:var(--muted); max-width:680px; margin-top:14px}
+  .ground-ink .sec-deck{color:var(--on-ink-4)}
+  .body-indent{margin-left:80px}
+
+  /* C11 numbered articles */
+  .articles{border-top:2px solid var(--ink)}
+  .ground-sage .articles{border-top-color:var(--forest)}
+  .article-row{display:grid; grid-template-columns:70px 1fr; gap:20px; padding:28px 0; border-bottom:1px solid var(--rule)}
+  .article-row .ord{font-family:Georgia,serif; font-size:24px; color:var(--forest)}
+  .article-row h3{font-size:28px; letter-spacing:-.01em; margin-bottom:10px}
+  .article-row .body{font-size:15px; line-height:1.55; color:var(--ink-70-alt); max-width:880px}
+  .article-row .tagline{font-size:13px; color:var(--muted); margin-top:10px}
+  .article-row .tagline b{font-weight:700}
+
+  /* C8 comparison cards */
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+  .card{border-top:4px solid var(--forest); background:var(--surface); padding:28px 26px}
+  .card.gold{border-top-color:var(--gold-alt)}
+  .card.coral{border-top-color:var(--coral)}
+  .card .kicker{font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted)}
+  .card h3{font-size:26px; margin:10px 0 12px; letter-spacing:-.01em}
+  .card .body{font-size:14px; color:var(--muted); line-height:1.5}
+  .card .catch{margin-top:18px; padding-top:16px; border-top:1px solid var(--rule)}
+  .card .catch .label{font-size:12px; font-weight:700; color:var(--forest); text-transform:uppercase; letter-spacing:.06em}
+  .card .catch .cbody{font-size:14px; color:var(--ink-70-alt); margin-top:6px; line-height:1.5}
+
+  /* C14 data table */
+  table.data{width:100%; border-collapse:collapse; font-size:14px; line-height:1.45}
+  table.data thead th{font-size:11px; font-weight:400; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); text-align:left; padding:0 14px 12px; border-bottom:2px solid var(--ink)}
+  .ground-ink table.data thead th{border-bottom-color:var(--on-ink-1); color:var(--on-ink-4)}
+  table.data td{padding:16px 14px; border-bottom:1px solid var(--rule); vertical-align:top}
+  .ground-ink table.data td{border-bottom-color:var(--rule-dark)}
+  table.data td.key{font-weight:700; white-space:nowrap}
+  table.data td.numeric{font-family:Georgia,serif}
+  table.data td.alarm{color:var(--coral); font-weight:700}
+  .ground-ink table.data td.alarm{color:#f0a08e}
+  table.data td.muted{color:var(--muted)}
+  .table-wrap{overflow-x:auto}
+
+  /* C13 evidence disclosure */
+  details{margin-top:8px}
+  summary{list-style:none; cursor:pointer; font-size:13px; font-weight:700; color:var(--forest); padding:16px 0}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:'▸\00a0 '}
+  details[open] summary{margin-bottom:4px}
+  .reveal{animation:reveal .22s ease}
+  @keyframes reveal{from{opacity:0; transform:translateY(-4px)} to{opacity:1; transform:none}}
+  .evidence-body{font-size:14px; line-height:1.7; color:var(--ink-70-alt); max-width:1000px}
+  .evidence-body ul{margin:0; padding-left:20px}
+  .evidence-body li{margin-bottom:10px}
+  .evidence-cols{display:grid; grid-template-columns:1fr 1fr; gap:28px; max-width:1000px}
+
+  /* C12 accent band */
+  .accent-band{display:grid; grid-template-columns:1fr 1.2fr; gap:48px; align-items:end; background:var(--forest); color:var(--on-ink-1); padding:54px 60px}
+  .accent-band .kicker{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--mint-text)}
+  .accent-band h3{font-size:38px; line-height:1.05; margin-top:14px}
+  .accent-band .body{font-size:16px; line-height:1.6; color:var(--on-ink-3); margin-top:16px}
+  .accent-band strong{color:var(--gold); font-weight:500}
+  .accent-band .foot{font-size:13px; color:var(--on-ink-4); margin-top:20px; line-height:1.6}
+
+  /* C15 caution list */
+  .caution{border-top:4px solid var(--coral); background:var(--surface); padding:6px 0}
+  .caution ol{margin:0; padding:0; list-style:none; counter-reset:c}
+  .caution li{counter-increment:c; padding:24px 0; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:34px 1fr; gap:14px}
+  .caution li:last-child{border-bottom:none}
+  .caution li::before{content:counter(c,decimal-leading-zero); font-family:Georgia,serif; color:var(--coral); font-size:21px}
+  .caution h4{font-size:16px; font-weight:700; font-family:'Helvetica Neue',sans-serif}
+  .caution p{font-size:14px; color:var(--muted); margin-top:6px; line-height:1.55}
+
+  /* footnote cards (C8 small variant) */
+  .foot-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:44px}
+  .foot-card{border-top:1px solid var(--rule); padding-top:18px}
+  .foot-card h4{font-size:15px; font-weight:700; font-family:'Helvetica Neue',sans-serif; margin-bottom:8px}
+  .foot-card p{font-size:13.5px; color:var(--muted); line-height:1.55; margin:0}
+
+  /* sources / C16 */
+  .sources-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--rule)}
+  .source-tile{display:grid; grid-template-columns:38px 1fr; gap:12px; padding:18px 22px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+  .source-tile:nth-child(2n){border-right:none}
+  .source-tile:hover{background:var(--mint-hover)}
+  .source-tile .idx{font-family:Georgia,serif; color:var(--forest); font-size:14px}
+  .source-tile .lbl{font-size:13px; font-weight:700}
+  .source-tile .desc{font-size:12.5px; color:var(--muted); margin-top:2px}
+  .method-note{font-size:14px; line-height:1.6; color:var(--ink-70-alt); max-width:1000px; margin-top:32px}
+
+  footer.pagefoot{background:var(--ink); color:var(--on-ink-5); padding:32px 96px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px}
+
+  .callout-note{margin-top:26px; font-size:13px; color:var(--muted); line-height:1.7; max-width:1000px}
+  .callout-note b{color:var(--ink); font-weight:700}
+
+  small.tag{display:inline-block; font-size:11px; color:var(--muted); border:1px solid var(--rule); padding:2px 7px; margin-left:6px}
+
+  @media (max-width:1024px){
+    section{padding:70px 40px}
+    .hero{padding:80px 40px 50px}
+    header.top{padding:0 24px}
+    .hero h1{font-size:52px}
+    .verdict{grid-template-columns:1fr; margin:0 20px; padding:38px 34px}
+    .sec-head{grid-template-columns:1fr; gap:10px}
+    .body-indent{margin-left:0}
+    .cards, .foot-cards{grid-template-columns:1fr}
+    .accent-band{grid-template-columns:1fr}
+    .evidence-cols{grid-template-columns:1fr}
+    .stat-strip{gap:24px}
+    nav.topnav{display:none}
+  }
+  @media (max-width:768px){
+    section{padding:56px 24px}
+    .hero{padding:64px 24px 40px}
+    .hero h1{font-size:40px}
+    .hero-deck{font-size:17px}
+    .sec-head h2{font-size:34px}
+    .sources-grid{grid-template-columns:1fr}
+    .source-tile{border-right:none}
+    .verdict p{font-size:24px}
+    table.data{font-size:13px}
+    .dot-grid{display:none}
+  }
+  @media print{
+    header.top{display:none}
+    section{padding:36px 32px; border-top:1px solid #ccc}
+    .dot-grid{display:none}
+    details{display:block !important}
+    details > summary{display:none}
+    .pill{display:none}
+  }
+</style>
+
+<header class="top">
+  <div class="wordmark"><span>B4B</span> · Reduce Churn</div>
+  <nav class="topnav">
+    <a href="#ask">The Ask</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#alternatives">Alternatives</a>
+    <a href="#experience">Experience</a>
+    <a href="#risks">Risks</a>
+    <a href="#horizon">Horizon</a>
+  </nav>
+  <button class="pill" id="toggle">Expand all evidence</button>
+</header>
+
+<main>
+
+  <section class="hero ground-paper">
+    <div class="dot-grid" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">04 · Reduce Churn — Playback Prep · Fri 25 Sep 2026</div>
+      <h1>This is not a single bet.<br><em>It's two, sequenced by evidence.</em></h1>
+      <p class="hero-deck">Team Unlock proceeds because the condition we set in advance to trigger it has been
+      met. Trip Pipeline proceeds alongside it — reframed, and on its own cheaper validation track. Every
+      number below opens to its working: use “Expand all evidence” in the header, or open any <code>▸</code> line.</p>
+      <div class="stat-strip">
+        <div class="stat"><div class="v">51 → 71%</div><div class="q">DSA analysis</div>
+          <div class="c">churn risk climb, 30 days after a user's last <em>session</em> — not last booking</div></div>
+        <div class="stat"><div class="v">42% / 62%</div><div class="q">James's analysis</div>
+          <div class="c">churn rate, multi-user vs single-user orgs — the headline figure for the room</div></div>
+        <div class="stat"><div class="v">~23%</div><div class="q">back-test math</div>
+          <div class="c">of B4B companies book at least once every 30 days — why Trip Pipeline moved from
+          prediction to pattern</div></div>
+        <div class="stat"><div class="v">18 / 16</div><div class="q">03, two converge passes</div>
+          <div class="c">score out of 25, Trip Pipeline vs runner-up — eliminations carried the call, not
+          the margin</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ground-paper" style="padding:0" id="ask">
+    <div class="verdict">
+      <div>
+        <div class="verdict-badge">01</div>
+        <div class="eyebrow" style="margin-top:14px">The decision requested of leadership</div>
+      </div>
+      <div>
+        <p>Approve a combined direction — Team Unlock now, and a reframed Trip Pipeline as a parallel,
+        lower-cost validation track — so a plan-ready scope exists by 9 October. This is
+        <strong>not a refusal to choose</strong>: one direction proceeds on evidence that already
+        triggered it; the other runs its own proof track and can be cut without waiting on the first.
+        We are asking for yes, no, or yes with a changed condition — not thoughts.</p>
+        <details>
+          <summary>See the four conditions, and the fallback if leadership says no</summary>
+          <div class="reveal">
+            <ul style="margin:0 0 18px; padding-left:20px; font-size:15px; line-height:1.7">
+              <li>A back-test on booking history runs first for B — testing whether historic booking
+              patterns can be reliably detected, not whether a specific upcoming trip can be predicted.</li>
+              <li>The churn effect for both B and D is proven only by a 50/50 A/B test, assigned per
+              organisation.</li>
+              <li>The GDPR and opt-in check is done before any A/B test starts on real European users.</li>
+              <li>James owns closing the boundary question with Anna Bondarenko's experiment before D
+              ships.</li>
+            </ul>
+            <p style="font-size:14px; color:var(--on-ink-2); line-height:1.6; margin:0">
+            <strong>If leadership says no:</strong> proceed on Team Unlock alone — its reversal condition
+            is independently met and doesn't depend on Trip Pipeline. Park the reframed Trip Pipeline as a
+            lower-cost follow-on once Team Unlock ships and the Anna Bondarenko boundary is closed.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="ground-paper">
+    <div class="sec-head">
+      <div class="badge">02</div>
+      <div>
+        <h2>The direction was contested — here's how it resolved</h2>
+        <p class="sec-deck">03 set a reversal condition before scoring. 05 confirmed it was met. This is
+        the resolution, not a re-litigation.</p>
+      </div>
+    </div>
+    <div class="body-indent">
+      <div class="articles">
+        <div class="article-row">
+          <div class="ord">01</div>
+          <div>
+            <h3>Team Unlock proceeds</h3>
+            <p class="body">The reversal condition set in <code>03_converge</code> — orgs with invited,
+            self-booking travellers churn materially less — was confirmed in <code>05</code>: “orgs with
+            invited travellers churn less… going from 1 user to 2 users is one of the best predictors of
+            improved retention.” Its open kill reasons from <code>03</code> still stand and aren't waived:
+            the invite/self-book mechanism already ships and churn persists on its own; its adoption
+            message risks cutting arranger sessions. James owns closing the boundary question with Anna
+            Bondarenko's experiment before it ships.</p>
+            <p class="tagline"><b>Triggers 03's own pre-set condition</b> · unresolved: adoption message,
+            Anna Bondarenko boundary</p>
+          </div>
+        </div>
+        <div class="article-row">
+          <div class="ord">02</div>
+          <div>
+            <h3>Trip Pipeline proceeds, reframed</h3>
+            <p class="body">Back-test math shows only ~23% of B4B companies book at least once every 30
+            days, so trip-prediction rarely has a clean target to hit. Reframed from <em>predicting the
+            arranger's next trip</em> to <em>surfacing booking-timing and policy suggestions from the org's
+            own historic patterns</em> — pattern detection, not prediction. Runs on its own validation
+            track: it can be folded in or dropped on its own evidence, independent of Team Unlock.</p>
+            <p class="tagline"><b>Removes 05's main pressure-test weakness</b> · own back-test, no kill
+            threshold set yet — left as an open risk for the room</p>
+          </div>
+        </div>
+        <div class="article-row" style="border-bottom:none">
+          <div class="ord">03</div>
+          <div>
+            <h3>The trade-off, stated plainly</h3>
+            <p class="body">“We are recommending two directions at once rather than picking one, which
+            costs focus and Engineering bandwidth up front. In exchange we do not bet the whole
+            recommendation on a single mechanism: Team Unlock is the direction the evidence already points
+            to; Trip Pipeline is a cheaper, pattern-based validation track that can be tested in parallel
+            and folded in or dropped based on its own back-test, without waiting on Team Unlock to prove
+            itself first.”</p>
+            <p class="tagline"><b>Reach vs. focus</b> · the stated cost of not choosing only one</p>
+          </div>
+        </div>
+      </div>
+
+      <details>
+        <summary>See the two converge passes, and why Team Unlock moved from killed to combined</summary>
+        <div class="reveal evidence-body">
+          <p><strong>First pass — rejected at human check.</strong> Chose Disruption Radar over Traveller
+          Signal Loop, Autopilot and Digest, Trip Health Score and Change-Request Approvals. James rejected
+          the option set outright: disruption frequency is too low to bring arrangers back. The lesson
+          carried into pass two — business outcome now counts trigger frequency; Disruption Radar had
+          scored a 4 there, which was wrong.</p>
+          <p><strong>Second pass, on the v2 option set — scores out of 25:</strong> Trip Pipeline 18,
+          Disruption Radar 16, Team Unlock 14, Autopilot and Digest 14, Traveller Roster 12, Rate Lock 11,
+          Booker Rewards 8. The margin is small — the eliminations carried the call, not the scores. Team
+          Unlock's score reflected a “killed” verdict at scoring time; that call changed once <code>05</code>
+          confirmed its reversal condition was met. It is now combined with Trip Pipeline, not eliminated.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ground-surface" id="evidence">
+    <div class="sec-head">
+      <div class="badge">03</div>
+      <div>
+        <h2>The evidence, and its limits</h2>
+        <p class="sec-deck">Evidence, not activity — the limits stated before being asked.</p>
+      </div>
+    </div>
+    <div class="body-indent">
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Metric</th><th>Value</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td class="key">Churn risk, 30 days after last session</td><td class="numeric">51% → 71%</td><td class="muted">DSA analysis</td></tr>
+            <tr><td class="key">Churn risk, 30 days after last booking</td><td class="numeric">51% → 54%</td><td class="muted">DSA analysis — booking gap alone moves this far less than a session gap</td></tr>
+            <tr><td class="key">Churn risk, 120 days no session</td><td class="numeric">90%</td><td class="muted">DSA analysis</td></tr>
+            <tr><td class="key">Regrettable churn</td><td class="numeric">5–6% of churners · 32% of lost volume</td><td class="muted">DSA analysis</td></tr>
+            <tr><td class="key">Multi-user vs single-user org churn</td><td class="numeric">42% vs 62%</td><td class="muted">James's analysis — the headline figure for the room</td></tr>
+            <tr><td class="key">Companies booking again within 30 days, ≥1 in 12mo</td><td class="numeric">149,185 / 358,512 (41.61%)</td><td class="muted alarm">booking data — “at least once in 12 months,” not a typical month</td></tr>
+            <tr><td class="key">Companies booking monthly, every one of 12mo</td><td class="numeric">~1,000</td><td class="muted">booking data</td></tr>
+            <tr><td class="key">Companies booking at least once every 30 days</td><td class="numeric">~23%</td><td class="muted alarm">back-test math (James) — why Trip Pipeline's mechanism changed</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <details>
+        <summary>See the limits on this evidence</summary>
+        <div class="reveal evidence-body">
+          <ul>
+            <li>It is correlation. No evidence separates “no session caused churn” from “no travel caused
+            both.” The A/B test is the only test of cause.</li>
+            <li>The 30-day curve is measured across the entire base. The multi-user cut is assumed: “we can
+            assume the same applies to the 30 day window.”</li>
+            <li>The raw DSA decks were not opened in this run.</li>
+            <li>The 41.61% figure is “at least once in 12 months,” not a typical 30-day window — do not
+            present it as a monthly reach number.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ground-paper" id="alternatives">
+    <div class="sec-head">
+      <div class="badge">04</div>
+      <div>
+        <h2>Seven options, two converge passes</h2>
+        <p class="sec-deck">The margin was small — 18 vs 16 out of 25. The eliminations carried the call,
+        not the score.</p>
+      </div>
+    </div>
+    <div class="body-indent">
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Option</th><th>Verdict</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td class="key">B — Trip Pipeline</td><td class="key" style="color:var(--forest)">Combined, reframed</td><td>Only option whose reason to return recurs without a disruption. Reframed from trip-prediction to historic-pattern detection after 05.</td></tr>
+            <tr><td class="key">D — Team Unlock</td><td class="key" style="color:var(--forest)">Combined, primary</td><td>Scored lowest of the two finalists at converge time — but its reversal condition was confirmed in 05.</td></tr>
+            <tr><td class="key">C — Rate Lock</td><td class="muted">Sequenced, not dropped</td><td>Price-risk ownership sits with commercial and finance, outside this run. Needs Trip Pipeline first — the 12-month step.</td></tr>
+            <tr><td class="key">F — Disruption Radar</td><td class="muted">Killed</td><td>“Disruption isn't high enough to cover users logging back in.” May return later as one signal on B's surface.</td></tr>
+            <tr><td class="key">G — Autopilot and Digest</td><td class="muted">Killed</td><td>Its bet (fewer, calmer sessions) has no evidence and points against 51→71%. Needs policy controls. Kept only as a possible delivery channel.</td></tr>
+            <tr><td class="key">A — Traveller Roster</td><td class="muted">Killed</td><td>Trigger is a backlog, not a stream. After the first clean-up it has F's frequency problem. Sessions don't lead to bookings.</td></tr>
+            <tr><td class="key">E — Booker Rewards</td><td class="muted">Killed</td><td>Only moves when the arranger books. Puts more value on one person. Many policies ban personal rewards for company spend.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="ground-surface" id="experience">
+    <div class="sec-head">
+      <div class="badge">05</div>
+      <div>
+        <h2>What the arranger sees</h2>
+        <p class="sec-deck">An annotated wireframe storyboard, not a clickable prototype — Figma access
+        wasn't authenticated for this run.</p>
+      </div>
+    </div>
+    <div class="body-indent">
+      <div class="cards">
+        <div class="card">
+          <div class="kicker">Frame 1 · Day 1</div>
+          <h3>First view of booking-pattern suggestions</h3>
+          <p class="body">Two or three suggestions derived from the org's own booking history, each with a
+          one-line reason — “you usually book this route monthly,” “you typically book the day before
+          travel.” Capped for large orgs. An empty-state variant sits beside it. Visible to arrangers and
+          admins only.</p>
+          <div class="catch"><div class="label">Carries:</div><div class="cbody">The cold-start problem is
+          solved without needing to predict a specific trip — the pattern is legible enough to trust.</div></div>
+        </div>
+        <div class="card gold">
+          <div class="kicker">Frame 2 · Week 2–6</div>
+          <h3>The signal, inside Bookings and Trips</h3>
+          <p class="body">A generic, loss-framed nudge tied to a specific booking pattern — “prices tend to
+          rise if you book less than 3 weeks out” — no dollar-specific claim. Visually distinct from the
+          account's other notices.</p>
+          <div class="catch"><div class="label">Carries:</div><div class="cbody">A concrete, personal
+          reason to come back — a pattern-based nudge, not a trip prediction.</div></div>
+        </div>
+        <div class="card coral">
+          <div class="kicker">Frame 3 · Day 200</div>
+          <h3>Messy, at scale</h3>
+          <p class="body">Many suggestions and signals at once, mixed sources, mixed stages — unconfirmed,
+          confirmed, signalled, booked, dismissed.</p>
+          <div class="catch"><div class="label">Carries:</div><div class="cbody">A sustained loop at real
+          scale, not a first-run novelty.</div></div>
+        </div>
+      </div>
+      <p class="callout-note"><b>Deliberately grey:</b> the pattern-detection logic itself, the
+      price-watching mechanism, and the message schedule across the existing churn clocks.
+      <b>Updated to match 05, before Friday:</b> visibility restricted to arrangers and admins, a
+      suggestion cap for large orgs, loss framing on the signal, and the historic-pattern mechanism
+      replacing trip prediction — all four reflected above and in <code>artefact-notes.md</code>.</p>
+    </div>
+  </section>
+
+  <section class="ground-ink" id="risks">
+    <div class="sec-head">
+      <div class="badge">06</div>
+      <div>
+        <h2>What's resolved, what's open, what's accepted</h2>
+        <p class="sec-deck">The mess that matters here: churn is a long-running metric. Leading indicator —
+        share of cohort with a 30-day session gap, same unit as churn.</p>
+      </div>
+    </div>
+    <div class="body-indent">
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Status</th><th>Item</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td class="key">Resolved</td><td>B vs D call</td><td class="muted">Combined, not either/or</td></tr>
+            <tr><td class="key">Resolved</td><td>Gain vs loss framing</td><td class="muted">Loss framing, generic message, no dollar claim</td></tr>
+            <tr><td class="key">Resolved</td><td>Visibility &amp; suggestion cap</td><td class="muted">Arrangers and admins only; capped for large orgs — artefact updated</td></tr>
+            <tr><td class="key">Resolved</td><td>Headline churn figure</td><td class="muted">42% vs 62% (multi- vs single-user)</td></tr>
+            <tr><td class="key">Resolved</td><td>Mechanism</td><td class="muted">Reframed to historic-pattern detection</td></tr>
+            <tr><td class="key alarm">Open</td><td>Back-test kill threshold</td><td>Not set — left as an open risk for the room, so it isn't fitted to results after the fact</td></tr>
+            <tr><td class="key alarm">Open</td><td>Pattern detection unproven</td><td>“We haven't done any kind of ML or logical prediction, ever” — Lilly's objection, softened by the reframe, not eliminated</td></tr>
+            <tr><td class="key alarm">Open</td><td>Predictable-pattern orgs = returning orgs?</td><td>May be the same group. The A/B test is the guard</td></tr>
+            <tr><td class="key alarm">Open</td><td>GDPR / opt-in</td><td>Not checked — must clear before the live A/B test</td></tr>
+            <tr><td class="key alarm">Open</td><td>D's kill reasons</td><td>Invite/self-book already ships and churn persists on its own; adoption-message risk — not waived by combining with B</td></tr>
+            <tr><td class="key">Accepted</td><td>Message-schedule risk (4th churn clock)</td><td class="muted">“Accept the risk and ship anyway” — no reason given yet</td></tr>
+            <tr><td class="key">Accepted</td><td>Price drops after a “book now” signal</td><td class="muted">Accepted as a cost of the feature</td></tr>
+            <tr><td class="key">Accepted</td><td>One-person companies see nothing from B</td><td class="muted">Out of scope for B; D is the org-growth path that eventually reaches them</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="ground-sage">
+    <div class="sec-head">
+      <div class="badge">§</div>
+      <div>
+        <h2>Seven questions before exploration starts</h2>
+        <p class="sec-deck">Handed to Engineering on 26 Sep so exploration starts before the next meeting,
+        not after it.</p>
+      </div>
+    </div>
+    <div class="body-indent">
+      <div class="articles">
+        <div class="article-row"><div class="ord">01</div><div><h3 style="font-size:21px">Pattern detection, not prediction</h3><p class="body">Can historic booking-pattern detection (route regularity, timing regularity) be built reliably from existing booking data, without a prediction model?</p></div></div>
+        <div class="article-row"><div class="ord">02</div><div><h3 style="font-size:21px">Price watching</h3><p class="body">What would robust price watching need for the pattern-nudge signal? Does it need a Booking.com API change, with its 3–6 month lead time?</p></div></div>
+        <div class="article-row"><div class="ord">03</div><div><h3 style="font-size:21px">Flight price source</h3><p class="body">What is the source for flight price watching?</p></div></div>
+        <div class="article-row"><div class="ord">04</div><div><h3 style="font-size:21px">Back-test rule</h3><p class="body">Is a simple repeat-pattern rule (same route, same traveller, monthly or quarterly; or same days-before-departure booking habit) enough for the reframed back-test?</p></div></div>
+        <div class="article-row"><div class="ord">05</div><div><h3 style="font-size:21px">Measuring the leading indicator</h3><p class="body">Can “share of cohort with a 30-day session gap” be measured per organisation from today's session events?</p></div></div>
+        <div class="article-row"><div class="ord">06</div><div><h3 style="font-size:21px">A/B test design</h3><p class="body">Can the 50/50 A/B test be assigned per organisation, with a clean holdout, for both B and D?</p></div></div>
+        <div class="article-row" style="border-bottom:none"><div class="ord">07</div><div><h3 style="font-size:21px">One message schedule</h3><p class="body">How do B's and D's signals go through one message schedule with the 3 existing churn clocks, instead of adding a fourth?</p></div></div>
+      </div>
+      <p class="callout-note">No engineer has confirmed the pattern-detection prototype route yet.</p>
+    </div>
+  </section>
+
+  <section class="ground-paper" id="horizon">
+    <div class="sec-head">
+      <div class="badge">▪</div>
+      <div>
+        <h2>What this looks like in 12 months</h2>
+        <p class="sec-deck">Draft, sketched from 03's horizon section — 08_vision-horizon builds this
+        properly.</p>
+      </div>
+    </div>
+    <div class="body-indent" style="margin-left:0">
+      <div class="accent-band">
+        <div>
+          <div class="kicker">The horizon — draft</div>
+          <h3>B4B spreads travel ownership across the org, and helps every arranger get ahead of travel
+          rather than only clean up after it.</h3>
+        </div>
+        <div>
+          <p class="body">Team Unlock is the <strong>load-bearing 12-month story</strong> — value spreads
+          across the org as more people book, less concentration of churn risk in one arranger. Trip
+          Pipeline, reframed as pattern-based suggestions, is the near-term proof point underneath it. Rate
+          Lock becomes possible once pattern data matures into real trip visibility. One surface, more
+          signals: disruptions and policy exceptions join once policy controls ship. Boundaries held: no
+          spend reporting, no org-level forecasting.</p>
+          <p class="foot">Falsifiable: orgs may not want to widen who books, or arrangers may not act on
+          pattern-based suggestions. Not covered: the account that goes dark when its one arranger leaves
+          and never invites anyone — that sits with the separate invoicing and expenses track.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ground-sand">
+    <div class="sec-head">
+      <div class="badge">§</div>
+      <div>
+        <h2>Read with care</h2>
+        <p class="sec-deck">Prepared before the session, not after the question lands.</p>
+      </div>
+    </div>
+    <div class="body-indent">
+      <div class="caution">
+        <ol>
+          <li><div><h4>The hard question</h4><p>“Your own reversal condition for Team Unlock was met. Why
+          are you still recommending Trip Pipeline too?” Answer: Team Unlock proceeds on its own trigger;
+          Trip Pipeline runs a separate, cheaper validation track that doesn't block it and can be cut on
+          its own evidence. This is sequencing, not a refusal to decide.</p></div></li>
+          <li><div><h4>Where we might present activity as evidence</h4><p>Seven options, two converge
+          passes and a scoring table are activity. The scores are close (18 vs 16) — the eliminations, and
+          now Team Unlock's reversal, carry the call, not the score.</p></div></li>
+          <li><div><h4>The storyboard tests the story, not the mechanism</h4><p>It shows the experience
+          works <em>if</em> pattern detection works. It does not test pattern detection — only the
+          back-test and the A/B test do.</p></div></li>
+          <li><div><h4>41.61% sounds like reach. It isn't monthly reach.</h4><p>It's “at least once in 12
+          months.” Presenting it as a typical-month number overstates how often this lever fires.</p></div></li>
+          <li><div><h4>The message-schedule risk has no stated reason</h4><p>“Accept the risk and ship
+          anyway” — with no reason given. Leadership may reasonably ask for one before approving.</p></div></li>
+        </ol>
+      </div>
+      <div class="foot-cards">
+        <div class="foot-card"><h4>Lilly's objection</h4><p>“You have never built prediction, or now
+        pattern detection either. Why should we believe it works?” The honest answer is the back-test plus
+        the A/B test, not a claim.</p></div>
+        <div class="foot-card"><h4>If they decide in 3 minutes</h4><p>What the other 40 add: the combined
+        direction on the table with its sequencing, the four conditions agreed, Engineering starting 26
+        Sep — not after another meeting.</p></div>
+        <div class="foot-card"><h4>Still due from 01</h4><p>James has not yet read the problem statement
+        aloud as a whole, as its own human check.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ground-surface">
+    <div class="sec-head">
+      <div class="badge">▪</div>
+      <div>
+        <h2>Sources</h2>
+        <p class="sec-deck">Every claim above traces to one of these.</p>
+      </div>
+    </div>
+    <div class="body-indent">
+      <div class="sources-grid">
+        <div class="source-tile"><div class="idx">F</div><div><div class="lbl">01_frame/output/frame.md</div><div class="desc">Problem statement, evidence, job-to-be-done</div></div></div>
+        <div class="source-tile"><div class="idx">D</div><div><div class="lbl">03_converge/output/direction.md</div><div class="desc">Two converge passes, scores, reversal condition</div></div></div>
+        <div class="source-tile"><div class="idx">A</div><div><div class="lbl">04_make-tangible/output/artefact-notes.md</div><div class="desc">The three-frame storyboard, updated for this reframe</div></div></div>
+        <div class="source-tile"><div class="idx">P</div><div><div class="lbl">05_pressure-test/output/pressure-test.md</div><div class="desc">Interrogation, reversal-condition check, risk classification</div></div></div>
+        <div class="source-tile"><div class="idx">L</div><div><div class="lbl">_shared/decision-log.md</div><div class="desc">Both 04-reduce-churn entries — Disruption Radar (rejected), Trip Pipeline (live, pre-playback)</div></div></div>
+        <div class="source-tile"><div class="idx">J</div><div><div class="lbl">James Scholz, direct</div><div class="desc">Answers resolving the B/D contest during this prep pass, 23 Sep 2026</div></div></div>
+      </div>
+      <p class="method-note">This is a one-off playback readout, built for the 25 Sep leadership session
+      — not the standing <code>09_report</code>, which awaits <code>08_vision-horizon</code> and hasn't run
+      yet. Built directly from <code>06_playback/output/playback.md</code>, itself synthesized from 01, 03,
+      04, 05 and the decision log, plus James's direct answers resolving the contested B/D call during this
+      prep pass on 23 Sep 2026. No claim here goes further than its cited source. After the real session,
+      the decision made gets appended to <code>_shared/decision-log.md</code> — this document is
+      preparation, not the record.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pagefoot">
+  <div>Reduce Churn — Playback Readout</div>
+  <div>rev. 23 Sep 2026 · prep for 25 Sep session · not yet decided</div>
+</footer>
+
+<script>
+  (function(){
+    var btn = document.getElementById('toggle');
+    var open = false;
+    function setAll(state){
+      document.querySelectorAll('details').forEach(function(d){ d.open = state; });
+      btn.textContent = state ? 'Collapse evidence' : 'Expand all evidence';
+      open = state;
+    }
+    btn.addEventListener('click', function(){ setAll(!open); });
+    try{
+      var params = new URLSearchParams(location.search);
+      if (params.get('expand') === '1') setAll(true);
+    }catch(e){}
+  })();
+</script>

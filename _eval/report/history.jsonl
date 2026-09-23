@@ -1,0 +1,14 @@
+{"generated": "2026-09-21T16:08:07+12:00", "layers": ["structure"], "counts": {"fail": 53, "warn": 6, "info": 103, "pass": 926}, "blocking": 53, "duration": 0.39}
+{"generated": "2026-09-21T16:08:22+12:00", "layers": ["structure"], "counts": {"fail": 7, "warn": 6, "info": 103, "pass": 926}, "blocking": 7, "duration": 0.15}
+{"generated": "2026-09-21T16:10:38+12:00", "layers": ["structure"], "counts": {"fail": 5, "warn": 6, "info": 103, "pass": 930}, "blocking": 5, "duration": 0.15}
+{"generated": "2026-09-21T16:10:44+12:00", "layers": ["structure"], "counts": {"fail": 5, "warn": 6, "info": 103, "pass": 930}, "blocking": 5, "duration": 0.14}
+{"generated": "2026-09-21T16:10:55+12:00", "layers": ["structure"], "counts": {"fail": 4, "warn": 6, "info": 103, "pass": 928}, "blocking": 4, "duration": 0.15}
+{"generated": "2026-09-21T16:23:17+12:00", "layers": ["structure"], "counts": {"fail": 4, "warn": 6, "info": 103, "pass": 929}, "blocking": 4, "duration": 0.15}
+{"generated": "2026-09-21T17:02:37+12:00", "layers": ["structure"], "counts": {"fail": 4, "warn": 8, "info": 109, "pass": 949}, "blocking": 4, "duration": 0.23}
+{"generated": "2026-09-21T17:06:31+12:00", "layers": ["structure"], "counts": {"fail": 4, "warn": 8, "info": 109, "pass": 949}, "blocking": 4, "duration": 0.19}
+{"generated": "2026-09-21T17:06:31+12:00", "layers": ["legibility"], "counts": {"fail": 1, "warn": 0, "info": 0, "pass": 0}, "blocking": 1, "duration": 0.0}
+{"generated": "2026-09-21T17:06:47+12:00", "layers": ["behaviour"], "counts": {"fail": 4, "warn": 0, "info": 0, "pass": 0}, "blocking": 4, "duration": 15.82}
+{"generated": "2026-09-21T17:07:03+12:00", "layers": ["structure", "legibility", "behaviour"], "counts": {"fail": 9, "warn": 8, "info": 109, "pass": 949}, "blocking": 9, "duration": 15.51}
+{"generated": "2026-09-21T17:07:03+12:00", "layers": ["structure"], "counts": {"fail": 4, "warn": 8, "info": 109, "pass": 949}, "blocking": 4, "duration": 0.15}
+{"generated": "2026-09-21T17:11:07+12:00", "layers": ["structure"], "counts": {"fail": 4, "warn": 8, "info": 109, "pass": 949}, "blocking": 4, "duration": 0.21}
+{"generated": "2026-09-21T19:14:30+12:00", "layers": ["structure"], "counts": {"fail": 4, "warn": 8, "info": 109, "pass": 949}, "blocking": 4, "duration": 0.38}

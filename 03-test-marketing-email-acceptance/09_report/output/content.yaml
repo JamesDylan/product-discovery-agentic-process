@@ -1,0 +1,167 @@
+document:
+  title: "The Second Ask"
+  meta_line: "Marketing Email Acceptance · B4B position & plan · internal, solo test · rev. 21 Sep 2026"
+  nav:
+    - { label: "Verdict", anchor: "verdict" }
+    - { label: "The journey", anchor: "journey" }
+    - { label: "What we own", anchor: "what-we-own" }
+    - { label: "What we build", anchor: "what-we-build" }
+    - { label: "Read with care", anchor: "read-with-care" }
+    - { label: "Sources", anchor: "sources" }
+
+hero:
+  eyebrow: "MARKETING EMAIL ACCEPTANCE"
+  headline_line1: "We are not fixing a form"
+  headline_line2: "we are fixing when we ask"
+  deck: >
+    B4B treats every permission ask — starting with marketing email — as a one-time gate cleared
+    at signup, before a user has any reason to trust the product. This vision bets that timing,
+    not wording, is the fix: ask again once the user has proof the product works. The evidence
+    for every claim below sits under it — click to open.
+  stats:
+    - { value: "40%", qualifier: "vs 80% target", caption: "Invite / join acceptance rate" }
+    - { value: "48%", qualifier: "vs 70–75% target", caption: "Corporate email adoption" }
+    - { value: "12%", qualifier: "vs 15–25% healthy range", caption: "Single-to-multi-user conversion" }
+    - { value: "52%", qualifier: "vs 19% at 10+ users", caption: "Annual churn, single-user orgs" }
+  # source: _shared/b4b-context.md, "Current state numbers" / "Where adoption is strong / weak".
+  # Not this run's own evidence — 05_pressure-test didn't run — but the baseline the Next horizon
+  # bets on generalising into.
+
+verdict:
+  eyebrow: "THE VERDICT"
+  prose: >
+    B4B treats consent, invitation and expansion as one form step, cleared once at signup and
+    then treated as final. This vision bets that timing beats wording: <strong>ask again once a
+    user has proof the product works</strong>, not once, cold, before they trust it. Proven on
+    marketing email first, the same mechanism should generalise to every B4B ask with the same
+    shape.
+  emphasis_clause: "ask again once a user has proof the product works"
+  # source: 08_vision-horizon/output/vision-horizon.md, "The one sentence"
+
+journey:
+  title: "Now, next, later"
+  deck: "Three horizons. Each one depends on the one before it holding up — this isn't a menu."
+  steps:
+    - { number: "01", title: "Now — the second ask", one_line: "A defined engagement trigger (first booking, Nth session) fires a contextual marketing-consent ask, separate from the unchanged signup ask." }
+    - { number: "02", title: "Next — reusable trigger layer", one_line: "If timing beats a cold ask, build the trigger logic as infrastructure and point it at bigger gaps: invites, multi-user conversion, corporate email." }
+    - { number: "03", title: "Later — adaptive sequencing", one_line: "Once several asks share the layer, sequence which ask fires when, per user — instead of hand-wiring fixed triggers one at a time." }
+  # Only 3 of the schema's 5 cells — the horizon chain yields 3, not padded. source: vision-horizon.md Now/Next/Later.
+
+stages:
+  - id: "what-changed"
+    badge: "01"
+    title: "What changed"
+    deck: "Two rivals sourced this run. A third wasn't evidenced anywhere in this run's inputs — run with two rather than invent one."
+    ground: "paper"
+    blocks:
+      comparison_cards:
+        items:
+          - { kicker: "COMPETITIVE MOVE", title: "Engine — cashback undercuts \"free\"", body: "Engine's card rebate, up to 10%, reads as cheaper than B4B's free-to-use pitch, even though B4B has no fee at all.", callout_label: "Watch:", callout_body: "B4B's counter is the free-platform and Booking.com-funnel argument — structural, not a marketing claim.", accent: "coral" }
+          - { kicker: "COMPETITIVE MOVE", title: "Perk — agentic booking, live", body: "Perk shipped MCP-based booking inside Claude and ChatGPT on 19 Aug, ahead of Serko.ai's enterprise GA (Sept 2026).", callout_label: "The catch:", callout_body: "If the assistant becomes the booking surface, B4B's supply advantage becomes a wholesale channel, not a product. Unresolved in the roadmap.", accent: "coral" }
+        # source: _shared/b4b-context.md, "Commercial — Competitive pressure". Schema wants 3; James's call: run with 2.
+
+  - id: "what-we-own"
+    badge: "02"
+    title: "What we own"
+    deck: "Three capabilities this bet argues for, not three that exist today."
+    ground: "ink"
+    blocks:
+      asset_grid:
+        items:
+          - { index: "01", title: "The second-ask mechanism", body: "A defined engagement trigger, separate from the unchanged signup ask.", proof_point: "Ships narrow: one channel, one trigger — a direct test of the belief." }
+          - { index: "02", title: "A reusable trigger layer", body: "Event-triggered, not marketing-email-specific — hooks any permission- or action-gated ask.", proof_point: "Turns a one-off feature into infrastructure, if Now validates." }
+          - { index: "03", title: "Adaptive ask sequencing", body: "Decides which ask fires when, per user's own engagement signal.", proof_point: "Only buildable once multiple asks already share the layer." }
+        one_liner: { kicker: "WHAT THIS ISN'T YET", statement: "None of this exists.", emphasis: "It's the bet, not the build.", footnote: "Capabilities gained, as argued in 08_vision-horizon — not yet shipped." }
+        # Schema wants 5 items + 1; James's call: shrink to 3, only what's sourced.
+
+  - id: "where-we-stall"
+    badge: "03"
+    title: "Where we stall"
+    deck: "Not run this cycle."
+    ground: "surface"
+    blocks:
+      accent_band:
+        tone: "coral"
+        kicker: "NOT RUN THIS CYCLE"
+        headline: "No evidenced leak points"
+        body: "03_converge/output/direction.md wasn't produced and 05_pressure-test didn't run. There is no source material for a flywheel or a leak list here — not this run."
+        emphasis: "Run those stages before trusting a flywheel here."
+        # James's call: explicit placeholder, not cut, not invented.
+
+  - id: "what-we-build"
+    badge: "04"
+    title: "What we build"
+    deck: "The Now/Next/Later chain, each step's dependency stated, and what this bet is against."
+    ground: "sage"
+    blocks:
+      numbered_articles:
+        rule: "forest-2px"
+        ordinal_style: "two_digit"
+        items:
+          - { ordinal: "01", title: "Ship the second ask", body: "One trigger, one channel, marketing-email specific. The direct test of the timing belief.", tagline: "Direct test of the bet · answers nothing about wording · target: re-ask beats cold-ask" }
+          - { ordinal: "02", title: "Build the trigger layer", body: "Generalise the mechanism past marketing email, if Now validates it.", tagline: "Depends on 01 · reaches invite/join (40%→80%) and corporate email (48%→70–75%) · target: reusable infra" }
+          - { ordinal: "03", title: "Sequence asks adaptively", body: "Decide ask order and timing per user, once more than one ask shares the layer.", tagline: "Depends on 02 existing · not buildable from 01 alone · target: per-user ask timing" }
+      accent_band:
+        tone: "coral"
+        kicker: "WHAT THIS BETS AGAINST"
+        headline: "Not fixing the ask itself"
+        body: "This vision bets timing beats wording. If Now's data says otherwise, the whole horizon collapses back to Option 2 — redesign the signup ask — and that would have been the right call all along."
+        emphasis: "timing beats wording"
+
+  - id: "where-ai-sits"
+    badge: "AI"
+    title: "Where AI sits in this"
+    deck: "Incidental, not the mechanism — said plainly rather than forced."
+    ground: "surface"
+    blocks:
+      accent_band:
+        tone: "forest"
+        kicker: "WHERE AI SITS"
+        headline: "Incidental, not the mechanism"
+        body: "Now and Next are rule-based: fixed triggers firing a fixed ask. Later's per-user sequencing could use a ranking model to decide order — speculative, and not load-bearing to the bet."
+        emphasis: "not the mechanism"
+
+  - id: "where-this-lands"
+    badge: "05"
+    title: "Where this lands"
+    deck: "Not run this cycle."
+    ground: "paper"
+    blocks:
+      accent_band:
+        tone: "coral"
+        kicker: "NOT RUN THIS CYCLE"
+        headline: "No scope, no owners"
+        body: "07_engineering-refinement/output is empty. Nobody has scoped delivery or named an owner for the Now horizon yet."
+        emphasis: "Scope before you build."
+        # James's call: explicit placeholder, not cut, not invented.
+
+  - id: "read-with-care"
+    badge: "§"
+    title: "Read with care"
+    deck: "Five caveats this run can't resolve on its own."
+    ground: "sand"
+    blocks:
+      caution_list:
+        items:
+          - { title: "The core assumption is untested", body: "Re-asking at proof beating a cold ask is the load-bearing belief — flagged for 05_pressure-test, which hasn't run this cycle." }
+          - { title: "Marketing consent might be a symptom, not a lever", body: "It could be one more instance of the funnel gaps b4b-context.md already documents — invite acceptance, activation — rather than an independent driver of churn." }
+          - { title: "The bet skipped direction.md's scrutiny", body: "08_vision-horizon picked Option 1 straight from options.md's unranked list. 03_converge would normally own that trade-off call, with its own pressure." }
+          - { title: "House view is still empty", body: "This whole argument runs on generic B4B reasoning, not James's tested point of view on what good looks like here." }
+          - { title: "The asset inventory was skipped too", body: "00_setup/output/inventory.md wasn't produced. 'Mine what exists' in 02_explore ran on frame.md and session context only, not a real inventory." }
+
+sources:
+  items:
+    - { index: 1, label: "_shared/b4b-context.md — B4B baseline metrics and constraints", url: "" }
+    - { index: 2, label: "08_vision-horizon/output/vision-horizon.md — this run's bet and horizon", url: "" }
+    - { index: 3, label: "02_explore/output/options.md — the five options considered", url: "" }
+    - { index: 4, label: "CLAUDE.md — run identity and sphere of influence", url: "" }
+  method_note: >
+    Four internal sources, no external citations gathered this run. _shared/decision-log.md has
+    no entries for this run — no material calls were logged there. 03_converge, 05_pressure-test
+    and 07_engineering-refinement didn't run this cycle; their sections above are marked "not run"
+    rather than filled with invented content. Schema calls for 12 sources and 3 rivals; this run
+    has 4 and 2 — logged, not padded. See output/gaps.md for the full account and James's calls.
+
+footer:
+  left: "B4B — Marketing Email Acceptance (solo test)"
+  right: "rev. 21 Sep 2026 · run 03-test-marketing-email-acceptance · 09_report"
