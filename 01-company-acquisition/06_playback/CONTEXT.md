@@ -1,4 +1,4 @@
-# 06_playback — get a real decision (Fri 25 Sep)
+# 06_playback — get a real decision (Fri 9 Oct)
 
 One job: a clear decision on the direction. This is a decision point, not a showcase.
 

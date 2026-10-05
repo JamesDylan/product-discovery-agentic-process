@@ -12,8 +12,8 @@ the next stage reads whatever you left there.
 | `03_converge` | Make the call, own the trade-off | `direction.md` |
 | `04_make-tangible` | Build the artefact people react to | `artefact-notes.md` |
 | `05_pressure-test` | Attack it before leadership does | `pressure-test.md` |
-| `06_playback` | Get a real decision (Fri 25 Sep) | `playback.md` |
-| `07_engineering-refinement` | Decision-ready → plan-ready (by 9 Oct) | `solution-scope.md` |
+| `06_playback` | Get a real decision (Fri 9 Oct) | `playback.md` |
+| `07_engineering-refinement` | Decision-ready → plan-ready (after 9 Oct; done date TBD) | `solution-scope.md` |
 | `08_vision-horizon` | Lift the solution into a 12-month arc | `vision-horizon.md` |
 
 ## Status

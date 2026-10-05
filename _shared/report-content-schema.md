@@ -47,8 +47,7 @@ hero:
   stats: [{ value, qualifier?, caption }]     # EXACTLY 4
 ```
 `headline` is the reframe move — reject the obvious identity, assert a better one. The four stats
-must be independently sourced, and each must appear again later with its working shown. Four stats
-you cannot source is the signal to cut the strip, not to soften the numbers.
+must be independently sourced, and each must appear again later with its working shown. No need to link to the working here. Four stats you cannot source is the signal to cut the strip, not to soften the numbers.
 
 **Source:** `<source>` (the through-line, or the run's bet) · *derive* the stats from
 `05_pressure-test` and `_shared/b4b-context.md`.

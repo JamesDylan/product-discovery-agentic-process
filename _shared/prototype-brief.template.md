@@ -46,10 +46,10 @@ Precedence: `components/ui/*` primitive → `components/custom/*` composition �
 one-off, flagged. **Never raw hex.** Check each against the component registry's agent brief
 (`/?section=components`) before writing.
 
-| Screen | Components | Variants / axes |
-|---|---|---|
-| 1 | e.g. `sidebar`, `card variant=outline size=md`, `table`, `badge variant=success appearance=subtle` | |
-| 2 | | |
+| Screen | Components                                                                                         | Variants / axes |
+| ------ | -------------------------------------------------------------------------------------------------- | --------------- |
+| 1      | e.g. `sidebar`, `card variant=outline size=md`, `table`, `badge variant=success appearance=subtle` |                 |
+| 2      |                                                                                                    |                 |
 
 Status colours use the one ladder in `lib/status-families.ts`: `info → success → pending →
 warning → destructive`. `--warning` is orange; `--pending` is the yellow.
@@ -61,8 +61,8 @@ Only the states that affect the question. Name them explicitly.
 - Empty / first run: <or "not built">
 - Loading: <or "not built">
 - Error: <or "not built">
-- Zero / one / many: <which of these matter>
-- Role-absent: <hide what cannot exist; disable only what exists but isn't ready>
+- Zero / one / many: <"which of these matter"> 
+- Role-absent: <"hide what cannot exist; disable only what exists but isnt ready">
 
 ## Data
 

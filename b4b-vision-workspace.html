@@ -1,16 +1,982 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>B4B Vision Workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
 <style>
   :root {
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --ground: #EFF2F0;
+    --surface: #FFFFFF;
+    --surface-2: #E6EBE8;
+    --ink: #121C1A;
+    --ink-2: #33423F;
+    --muted: #61716D;
+    --faint: #8B9A96;
+    --line: #D3DCD8;
+    --line-strong: #B6C4BF;
+    --accent: #0C6B67;
+    --accent-ink: #084B48;
+    --accent-soft: #D6E9E7;
+    --warn: #9A5B05;
+    --warn-soft: #F5E6CC;
+    --crit: #A32D22;
+    --crit-soft: #F6DFDC;
+    --shadow: 0 1px 2px rgba(18,28,26,.06), 0 8px 24px -14px rgba(18,28,26,.22);
+    color-scheme: light dark;
   }
-  img { max-width: 100%; }
-  [hidden] { display: none !important; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1211;
+      --surface: #141C1B;
+      --surface-2: #1C2624;
+      --ink: #E7EEEB;
+      --ink-2: #C2CFCB;
+      --muted: #91A29D;
+      --faint: #6E807B;
+      --line: #263331;
+      --line-strong: #374744;
+      --accent: #4FCEC2;
+      --accent-ink: #8FE4DA;
+      --accent-soft: #123330;
+      --warn: #E5A745;
+      --warn-soft: #33270F;
+      --crit: #EF8377;
+      --crit-soft: #331A16;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 28px -16px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1211;
+    --surface: #141C1B;
+    --surface-2: #1C2624;
+    --ink: #E7EEEB;
+    --ink-2: #C2CFCB;
+    --muted: #91A29D;
+    --faint: #6E807B;
+    --line: #263331;
+    --line-strong: #374744;
+    --accent: #4FCEC2;
+    --accent-ink: #8FE4DA;
+    --accent-soft: #123330;
+    --warn: #E5A745;
+    --warn-soft: #33270F;
+    --crit: #EF8377;
+    --crit-soft: #331A16;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 28px -16px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+  html { height: 100%; box-sizing: border-box; }
+  body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: "Familjen Grotesk", "Public Sans", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .path, .mono, code {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-ligatures: none;
+  }
+  p { margin: 0; }
+
+  /* ---------- chrome ---------- */
+  .topbar, .navbar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-inline: clamp(16px, 4vw, 40px);
+    background: var(--surface);
+    border-color: var(--line);
+    border-style: solid;
+    border-width: 0;
+  }
+  .topbar { border-bottom-width: 1px; padding-block: 10px; min-height: 52px; }
+  .navbar { border-top-width: 1px; padding-block: 8px; min-height: 52px; }
+  .brand {
+    font-family: "Familjen Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .brand .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .spacer { flex: 1; }
+
+  .rail { display: flex; gap: 3px; align-items: center; flex: 1; min-width: 40px; }
+  .rail button {
+    flex: 1; height: 22px; padding: 0; border: 0;
+    background: none; cursor: pointer; position: relative; min-width: 0;
+  }
+  .rail button::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 9px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--line-strong);
+    transition: background .18s ease, height .18s ease, top .18s ease;
+  }
+  .rail button.seen::after { background: var(--accent-soft); }
+  .rail button[aria-current="true"]::after { background: var(--accent); height: 5px; top: 8px; }
+  .rail button:hover::after { background: var(--accent); }
+  .rail button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  .btn {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-2);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    padding: 6px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn[disabled] { opacity: .38; cursor: default; }
+  .btn[disabled]:hover { border-color: var(--line-strong); color: var(--ink-2); }
+  .counter {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ---------- stage ---------- */
+  .stage { flex: 1; position: relative; min-height: 0; }
+  .slide {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: clamp(20px, 3.4vw, 44px) clamp(16px, 4vw, 40px) clamp(28px, 4vw, 48px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity .22s ease, transform .22s ease, visibility .22s;
+  }
+  .slide.is-current { opacity: 1; visibility: visible; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .slide { transition: none; transform: none; }
+  }
+  .inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 2vw, 22px);
+  }
+  .slide h2 { font-size: clamp(24px, 3.4vw, 38px); line-height: 1.1; }
+  .lede { font-size: clamp(15px, 1.4vw, 17px); color: var(--ink-2); max-width: 66ch; }
+  .kicker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ---------- title slide ---------- */
+  .title-wrap { min-height: 100%; justify-content: center; gap: 22px; }
+  .title-wrap h1 {
+    font-size: clamp(32px, 6.2vw, 72px);
+    line-height: 0.99;
+    letter-spacing: -0.03em;
+    margin-top: 14px;
+  }
+  .title-wrap h1 em { font-style: normal; color: var(--accent); }
+  .title-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 32px;
+    margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .title-meta > div { min-width: 130px; }
+  .title-meta dt {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 3px;
+  }
+  .title-meta dd { margin: 0; font-size: 14px; color: var(--ink-2); font-weight: 500; }
+  .hint { font-size: 12.5px; color: var(--faint); }
+  .hint kbd {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    border: 1px solid var(--line-strong);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--muted);
+  }
+
+  /* ---------- blocks ---------- */
+  .pull {
+    border-left: 3px solid var(--accent);
+    padding: 2px 0 2px 18px;
+    font-family: "Familjen Grotesk", sans-serif;
+    font-size: clamp(18px, 2.3vw, 26px);
+    line-height: 1.24;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    max-width: 32ch;
+  }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .panel h3 { font-size: 15px; }
+  .panel p { font-size: 14px; color: var(--ink-2); }
+
+  .plainlist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+  .plainlist > li {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 4px 14px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .plainlist > li:last-child { border-bottom: 1px solid var(--line); }
+  .plainlist .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .plainlist .head { font-weight: 600; font-size: 15px; font-family: "Familjen Grotesk", sans-serif; }
+  .plainlist .sub { grid-column: 2; font-size: 14px; color: var(--muted); }
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 480px; font-size: 14px; }
+  th, td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  thead th {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    background: var(--surface-2);
+  }
+  td .path { font-size: 12.5px; color: var(--accent); }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+  .tag.open { background: var(--crit-soft); color: var(--crit); }
+  .tag.watch { background: var(--warn-soft); color: var(--warn); }
+
+  /* ---------- pipeline ---------- */
+  .pipe { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 5px; }
+  .pipe button {
+    font: inherit;
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--line-strong);
+    border-radius: 0 0 8px 8px;
+    padding: 9px 8px 11px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .pipe button .n { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .pipe button .nm { font-size: 11.5px; line-height: 1.2; color: var(--ink-2); overflow-wrap: anywhere; }
+  .pipe button:hover { border-top-color: var(--accent); }
+  .pipe button[aria-selected="true"] { border-top-color: var(--accent); background: var(--accent-soft); }
+  .pipe button[aria-selected="true"] .n,
+  .pipe button[aria-selected="true"] .nm { color: var(--accent-ink); }
+  .pipe button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .stepdetail {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 18px 28px;
+    box-shadow: var(--shadow);
+  }
+  .stepdetail .job {
+    font-size: clamp(17px, 2vw, 22px);
+    font-family: "Familjen Grotesk", sans-serif;
+    font-weight: 500;
+    line-height: 1.22;
+    letter-spacing: -0.015em;
+  }
+  .stepdetail .side { display: flex; flex-direction: column; gap: 12px; }
+  .field { margin: 0; }
+  .field dt {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 3px;
+  }
+  .field dd { margin: 0; font-size: 14px; color: var(--ink-2); }
+  .field dd.path { color: var(--accent); font-size: 13px; }
+
+  /* ---------- chart ---------- */
+  .chartwrap {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 12px 8px;
+    overflow-x: auto;
+  }
+  .chart { display: block; width: 100%; min-width: 540px; height: auto; }
+  .chart .axis { stroke: var(--line-strong); stroke-width: 1; }
+  .chart .curve { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .chart .area { fill: var(--accent-soft); stroke: none; }
+  .chart .dot { fill: var(--accent); }
+  .chart .lbl { fill: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+  .chart .ylbl { fill: var(--faint); font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .08em; }
+  .chart .note { fill: var(--muted); font-family: "Public Sans", sans-serif; font-size: 12px; font-style: italic; }
+
+  /* ---------- timeline ---------- */
+  .timeline { display: flex; flex-direction: column; }
+  .timeline .row {
+    display: grid;
+    grid-template-columns: 158px 12px 1fr;
+    gap: 0 16px;
+    align-items: start;
+    padding-bottom: 18px;
+  }
+  .timeline .row:last-child { padding-bottom: 0; }
+  .timeline .when {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .timeline .mark { position: relative; align-self: stretch; }
+  .timeline .mark::before {
+    content: "";
+    position: absolute;
+    left: 4px; top: 8px; bottom: -14px;
+    width: 1px;
+    background: var(--line-strong);
+  }
+  .timeline .row:last-child .mark::before { display: none; }
+  .timeline .mark::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 5px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--ground);
+    border: 2px solid var(--line-strong);
+  }
+  .timeline .row.gate .mark::after { background: var(--accent); border-color: var(--accent); }
+  .timeline .what { font-size: 14.5px; color: var(--ink-2); }
+  .timeline .row.gate .what { color: var(--ink); font-weight: 600; }
+  .timeline .row.gate .when { color: var(--accent); font-weight: 600; }
+
+  /* ---------- overview ---------- */
+  .overview {
+    position: absolute;
+    inset: 0;
+    background: var(--ground);
+    z-index: 20;
+    overflow-y: auto;
+    padding: clamp(18px, 3vw, 32px) clamp(16px, 4vw, 40px) 40px;
+  }
+  .ovhead { max-width: 1080px; margin: 0 auto clamp(14px, 2vw, 20px); display: flex; align-items: center; gap: 12px; }
+  .ovgrid {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+  }
+  .ovgrid button {
+    font: inherit;
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 12px 14px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-height: 82px;
+  }
+  .ovgrid button:hover { border-color: var(--accent); }
+  .ovgrid button[aria-current="true"] { border-color: var(--accent); background: var(--accent-soft); }
+  .ovgrid .n { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .ovgrid .t { font-family: "Familjen Grotesk", sans-serif; font-weight: 600; font-size: 14px; line-height: 1.2; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 880px) {
+    .stepdetail { grid-template-columns: 1fr; }
+    .pipe { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .timeline .row { grid-template-columns: 120px 12px 1fr; }
+  }
+  @media (max-width: 560px) {
+    .pipe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .timeline .row { grid-template-columns: 12px 1fr; gap: 2px 12px; }
+    .timeline .mark { grid-row: 1 / 3; }
+    .timeline .when { grid-column: 2; font-size: 12px; color: var(--muted); }
+    .timeline .what { grid-column: 2; }
+    .topbar .eyebrow { display: none; }
+    .btn-label { display: none; }
+  }
 </style>
 
-</body>
-</html>
+<header class="topbar">
+  <span class="brand"><span class="dot"></span>B4B 12-Month Vision</span>
+  <span class="eyebrow" id="slideEyebrow">Title</span>
+  <span class="spacer"></span>
+  <button class="btn" id="ovBtn" aria-expanded="false">All slides</button>
+</header>
+
+<main class="stage" id="stage">
+
+  <section class="slide is-current" data-title="Title" aria-label="Title">
+    <div class="inner title-wrap">
+      <div>
+        <p class="kicker">B4B &middot; Sept&ndash;Oct 2026</p>
+        <h1>A shared folder that <em>is</em> the process.</h1>
+      </div>
+      <p class="lede">One B4B problem area, taken from &ldquo;we don&rsquo;t really know&rdquo; to a decision-ready direction for the next 1&ndash;3 months <strong>and</strong> a 12-month view of where that part of the product is going.</p>
+      <dl class="title-meta">
+        <div><dt>Runs live now</dt><dd>01-company-acquisition<br>02-company-guardrails</dd></div>
+        <div><dt>Steps</dt><dd>Nine &mdash; one job each</dd></div>
+        <div><dt>Decision point</dt><dd>Fri 25 Sep</dd></div>
+        <div><dt>Definition of done</dt><dd>Fri 9 Oct</dd></div>
+      </dl>
+      <p class="hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> to move &middot; <kbd>O</kbd> for all slides</p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Why we're doing this" aria-label="Why we're doing this">
+    <div class="inner">
+      <p class="kicker">The gap</p>
+      <h2>The near-term work is strong. The 12-month picture is missing.</h2>
+      <div class="cols">
+        <div class="panel">
+          <h3>What that costs us</h3>
+          <p>People inside the team don&rsquo;t believe there is a direction for B4B. A competing internal narrative is generating noise that B4B currently has no answer to.</p>
+        </div>
+        <div class="panel">
+          <h3>Who sets it</h3>
+          <p>Senior people in the area they know best &mdash; not handed down. This workspace exists so a Product and Design pair can form a point of view and defend it without waiting for permission.</p>
+        </div>
+      </div>
+      <p class="pull">The goal is not a document. The goal is that people believe there is a direction.</p>
+      <p class="lede">A vision that is well argued and changes nobody&rsquo;s mind has failed.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Two outputs" aria-label="Two outputs">
+    <div class="inner">
+      <p class="kicker">Do not mix these up</p>
+      <h2>Two outputs, deliberately separate</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>&nbsp;</th><th>Accelerator output</th><th>Vision output</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Time horizon</strong></td><td>Next 1&ndash;3 months</td><td>12 months</td></tr>
+            <tr><td><strong>What you make</strong></td><td>A prototype and the reasoning</td><td>A narrative arc and capability sequence</td></tr>
+            <tr><td><strong>Question it answers</strong></td><td>&ldquo;Do we build this?&rdquo;</td><td>&ldquo;Where is this part of B4B going?&rdquo;</td></tr>
+            <tr><td><strong>Produced by</strong></td><td>Steps <span class="path">00</span>&ndash;<span class="path">07</span></td><td>Step <span class="path">08_vision-horizon</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cols">
+        <div class="panel">
+          <h3>The trap</h3>
+          <p>The original Accelerator brief only produces the left column. A perfectly run three-day sprint on invite acceptance gives you a feature &mdash; and the team still says there is no vision.</p>
+        </div>
+        <div class="panel" style="border-color: var(--accent); background: var(--accent-soft);">
+          <h3 style="color: var(--accent-ink);">If time runs short</h3>
+          <p style="color: var(--accent-ink);">Cut prototype polish in step <span class="path">04</span>, not step <span class="path">08</span>. Step 08 is not optional and not a nice-to-have at the end. It is the reason this workspace exists.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="The nine steps" aria-label="The nine steps">
+    <div class="inner">
+      <p class="kicker">Click a step</p>
+      <h2>Nine steps. One job each.</h2>
+      <div class="pipe" id="pipe" role="tablist" aria-label="The nine steps"></div>
+      <div class="stepdetail" id="stepDetail" role="region" aria-live="polite"></div>
+      <p class="lede">You can run them out of order, skip ahead, or loop back. What is fixed: each step leaves a file behind, so the next one has something to stand on. One step&rsquo;s <span class="path">output/</span> folder is the next step&rsquo;s input &mdash; and every output is an edit surface. Open it, change what you disagree with, and the next step reads whatever you left there.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Where attention goes" aria-label="Where attention goes">
+    <div class="inner">
+      <p class="kicker">The attention trade</p>
+      <h2>Expect a U-curve</h2>
+      <div class="chartwrap">
+        <svg class="chart" viewBox="0 0 760 300" role="img" aria-label="Attention across the nine steps: heavy at 01_frame, light through the middle, heavy again at 08_vision-horizon">
+          <g id="chartArea"></g>
+        </svg>
+      </div>
+      <div class="cols">
+        <div class="panel"><h3>Heavy at the start</h3><p>Setting direction. An hour spent in <span class="path">01_frame</span> is worth a day spent in <span class="path">05_pressure-test</span>.</p></div>
+        <div class="panel"><h3>Light through the middle</h3><p>The work grinds, constrained by both anchors. Don&rsquo;t stop to re-decide what you already decided.</p></div>
+        <div class="panel"><h3>Heavy again at the end</h3><p>Deciding whether this is actually right &mdash; and turning it into a 12-month arc.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Who is involved" aria-label="Who is involved">
+    <div class="inner">
+      <p class="kicker">Roles</p>
+      <h2>Who is involved</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Who</th><th>What they do</th></tr></thead>
+          <tbody>
+            <tr><td><strong>The Product + Design pair</strong></td><td>Own the work jointly. Not Product specifying and handing to Design. Senior enough to make trade-offs and be wrong.</td></tr>
+            <tr><td><strong>Cross-functional leadership</strong><br><span style="color: var(--muted);">Names withheld</span></td><td>Frame the challenge, protect the time, remove blockers, act as SMEs, make the decision on Friday.</td></tr>
+            <tr><td><strong>Senior Engineering partners</strong></td><td>Join <em>after</em> the Friday decision, for step <span class="path">07</span>. Feasibility, complexity, what changes the shape of the thing.</td></tr>
+            <tr><td><strong>Domain SMEs &amp; customer-facing colleagues</strong></td><td>Pulled in briefly where an assumption could change the direction. Twenty minutes, not a workshop.</td></tr>
+            <tr><td><strong>Named owner of the 12-month view</strong> <span class="tag open">Unfilled</span></td><td>One person per problem area. Their name goes in the run&rsquo;s <span class="path">CLAUDE.md</span>.</td></tr>
+            <tr><td><strong>Commercial partner</strong></td><td>See the output in October. Different audience, different cut &mdash; commercial thesis, not product story.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="How to use it" aria-label="How to use it">
+    <div class="inner">
+      <p class="kicker">Your first ten minutes</p>
+      <h2>How to actually use it</h2>
+      <ol class="plainlist">
+        <li><span class="num">1</span><span class="head">Open the workspace. Read <span class="path">CLAUDE.md</span></span><span class="sub">A one-page map, nothing more.</span></li>
+        <li><span class="num">2</span><span class="head">Read <span class="path">CONTEXT.md</span></span><span class="sub">The shape of the whole thing, on one screen.</span></li>
+        <li><span class="num">3</span><span class="head">Open your problem area folder</span><span class="sub">Its <span class="path">CLAUDE.md</span> says what this run is; its <span class="path">CONTEXT.md</span> holds the step table.</span></li>
+        <li><span class="num">4</span><span class="head">Open the step you are on. Read its <span class="path">CONTEXT.md</span></span><span class="sub">That is your brief: inputs, what to do, what to produce, the human check.</span></li>
+        <li><span class="num">5</span><span class="head">Work. Save your output into that step&rsquo;s <span class="path">output/</span> folder</span><span class="sub">A session that produces only slides or a good feeling has failed.</span></li>
+      </ol>
+      <div class="cols">
+        <div class="panel"><h3>How to know where things stand</h3><p>Run the status command in <span class="path">CLAUDE.md</span>. A file in an <span class="path">output/</span> folder means that step is done. There is no separate tracker to keep updated &mdash; the files <em>are</em> the status.</p></div>
+        <div class="panel"><h3>Starting a new problem area</h3><p>Copy <span class="path">_template</span> to a new numbered folder and fill in its <span class="path">CLAUDE.md</span>. Never edit a live run to change the method &mdash; change <span class="path">_template</span>.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Why this works" aria-label="Why this works">
+    <div class="inner">
+      <p class="kicker">Six reasons, in plain terms</p>
+      <h2>Why this works</h2>
+      <div class="cols">
+        <div class="panel"><h3>One job per folder</h3><p>A step that gathers does not also filter. A step that filters does not also decide. Mixing jobs is how you end up with vague output.</p></div>
+        <div class="panel"><h3>The assistant sees only what the step needs</h3><p>Each step lists its inputs by exact file path, and says what <em>not</em> to load. An assistant given everything performs worse than one given the right thing.</p></div>
+        <div class="panel"><h3>The order of the work is the order of the folders</h3><p>No orchestration software, no framework, no tool to learn. Numbered folders carry the sequence; plain text carries the state.</p></div>
+        <div class="panel"><h3>Readable and editable by a person</h3><p>Plain markdown. No database, no export, no proprietary format. Anyone can open any file, see where things stand, and change it.</p></div>
+        <div class="panel"><h3>Set up the factory once, run it many times</h3><p>Product context, house view and principles live in <span class="path">_shared</span>. Fix something there and every run improves at the same time.</p></div>
+        <div class="panel"><h3>It survives the person who built it</h3><p>The judgement is in the files, not in someone&rsquo;s head. A pair can run a step without waiting on anyone.</p></div>
+      </div>
+      <p class="lede" style="font-size: 13.5px; color: var(--muted);">Not a local invention &mdash; the method is published. ICM (Interpretable Context Methodology), Van Clief &amp; McDermott, <span class="path">arXiv:2603.16021</span>. Every major AI lab has landed on the same pattern: plain folders and files as the way judgement gets handed to a machine.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Limits of the method" aria-label="Limits of the method">
+    <div class="inner">
+      <p class="kicker">Read this part properly</p>
+      <h2>Honest limits &mdash; of the method</h2>
+      <div class="cols">
+        <div class="panel"><h3>It suits sequential work</h3><p>With a human checking at each stage. A poor fit for real-time work, many people hitting the same pipeline at once, or a system that needs to branch on its own.</p></div>
+        <div class="panel"><h3>It does not make anyone smarter</h3><p>It organises thinking. It does not supply it.</p></div>
+        <div class="panel"><h3>Three days is short for real pressure-testing</h3><p>Step <span class="path">05</span> will mostly rely on existing evidence and expert judgement, not new user research. Be honest about that on Friday.</p></div>
+      </div>
+      <p class="pull" style="border-left-color: var(--warn); max-width: 46ch;">Structure can become theatre. Neatly filled folders can look like progress while the thinking stays shallow.</p>
+      <p class="lede">The files are there to hold judgement, not to replace it. If a step is not helping, say so and collapse it. <strong>The constraint is time, not process.</strong></p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="What's still open" aria-label="What's still open">
+    <div class="inner">
+      <p class="kicker">Limits of this workspace, today</p>
+      <h2>What is still open</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>What</th><th>Status</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td><span class="path">_shared/house-view.md</span></td><td><span class="tag open">Empty</span></td><td>Holds the specific view of what good looks like in B4B. Until it is filled, every step runs on generic best practice &mdash; and a process with no opinion cannot produce a point of view.</td></tr>
+            <tr><td><span class="path">_shared/b4b-context.md</span></td><td><span class="tag open">Nearly empty</span></td><td>Every step downstream is weaker without it.</td></tr>
+            <tr><td>Owner of the 12-month view</td><td><span class="tag open">Both runs say &lt;name&gt;</span></td><td>If those stay blank, this becomes a better-organised version of one person steering the ship.</td></tr>
+            <tr><td>Real use</td><td><span class="tag watch">Never run</span></td><td>The structure is sound and tested for navigability, but no real work has passed through it yet.</td></tr>
+            <tr><td>Two problem areas</td><td><span class="tag watch">Thin base</span></td><td>Step <span class="path">99</span> must produce a through-line neither run produced alone. Staple two summaries together and the team will correctly read it as &ldquo;no vision, just workstreams.&rdquo;</td></tr>
+            <tr><td><span class="path">_shared/timeline.md</span></td><td><span class="tag watch">Hard-coded dates</span></td><td>Set to this cycle (Sept&ndash;Oct 2026). Re-date before reusing.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Non-negotiables" aria-label="Non-negotiables">
+    <div class="inner">
+      <p class="kicker">Six rules</p>
+      <h2>Rules that are not negotiable</h2>
+      <ol class="plainlist">
+        <li><span class="num">1</span><span class="head">Load only what the step names</span><span class="sub">Do not point the assistant at the whole folder.</span></li>
+        <li><span class="num">2</span><span class="head">One home per fact</span><span class="sub">If something is true in <span class="path">_shared</span>, do not restate it elsewhere. Point at it.</span></li>
+        <li><span class="num">3</span><span class="head">Method and live work stay separate</span><span class="sub">Change <span class="path">_template</span>, never a running copy.</span></li>
+        <li><span class="num">4</span><span class="head">Every working session ends in a file</span><span class="sub">Write the decision down before leaving the room.</span></li>
+        <li><span class="num">5</span><span class="head">No polished deck on Friday</span><span class="sub">Use the actual work. A deck signals the artefact cannot carry itself.</span></li>
+        <li><span class="num">6</span><span class="head">Step <span class="path">08_vision-horizon</span> is not optional</span><span class="sub">It is the reason this workspace exists.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Key dates" aria-label="Key dates">
+    <div class="inner">
+      <p class="kicker">2026</p>
+      <h2>Key dates</h2>
+      <div class="timeline">
+        <div class="row"><div class="when">Mon 21 Sep</div><div class="mark"></div><div class="what">Day 0 &mdash; setup only</div></div>
+        <div class="row"><div class="when">Tue 22 Sep</div><div class="mark"></div><div class="what">Kickoff, accelerator begins</div></div>
+        <div class="row"><div class="when">Tue&ndash;Thu 22&ndash;24 Sep</div><div class="mark"></div><div class="what">Three protected working days &mdash; steps <span class="path">00</span>&ndash;<span class="path">06</span></div></div>
+        <div class="row gate"><div class="when">Fri 25 Sep</div><div class="mark"></div><div class="what">Playback and decision &mdash; a decision point, not a showcase</div></div>
+        <div class="row"><div class="when">25 Sep &ndash; 8 Oct</div><div class="mark"></div><div class="what">Engineering exploration and refinement &mdash; step <span class="path">07</span></div></div>
+        <div class="row gate"><div class="when">Fri 9 Oct</div><div class="mark"></div><div class="what">Definition of done &mdash; agreed, sufficiently resolved scope and design direction. Step <span class="path">08</span> may run alongside <span class="path">07</span>, but must not be deferred past this date.</div></div>
+        <div class="row"><div class="when">October</div><div class="mark"></div><div class="what">Partner readout &mdash; commercial thesis, not product story</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="How we'll know it worked" aria-label="How we'll know it worked">
+    <div class="inner">
+      <p class="kicker">The measure</p>
+      <h2>How we&rsquo;ll know it worked</h2>
+      <p class="lede">Not by the quality of the documents. By this test:</p>
+      <p class="pull" style="max-width: 40ch;">Can a Product and Design pair run a step and reach a defensible position without the workspace owner in the room?</p>
+      <p class="lede">That is checkable this week. If the answer is no, the process has produced a bottleneck with better filing.</p>
+      <div class="panel" style="border-color: var(--accent);">
+        <h3>A second test &mdash; for the vision itself</h3>
+        <p>Say the one-sentence version to someone who works on B4B but not on this run, and ask them to disagree with it. <strong>If they cannot find anything to disagree with, it is not a position yet.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="What unblocks this" aria-label="What unblocks this">
+    <div class="inner">
+      <p class="kicker">Before Tuesday&rsquo;s kickoff</p>
+      <h2>Three things that unblock everything else</h2>
+      <ol class="plainlist">
+        <li><span class="num">1</span><span class="head">A name against each 12-month view</span><span class="sub">One person per problem area, written into that run&rsquo;s <span class="path">CLAUDE.md</span>.</span></li>
+        <li><span class="num">2</span><span class="head">The house view, written down</span><span class="sub">What good looks like in B4B, in <span class="path">_shared/house-view.md</span>. An hour of argument here is worth more than any step downstream.</span></li>
+        <li><span class="num">3</span><span class="head">Enough B4B context to stand on</span><span class="sub"><span class="path">_shared/b4b-context.md</span>. Point at what already exists rather than writing it fresh.</span></li>
+      </ol>
+      <p class="pull">Read your step&rsquo;s <span class="path">CONTEXT.md</span>. Work. Leave a file behind.</p>
+      <p class="hint">Method reference: Van Clief &amp; McDermott, &ldquo;Interpretable Context Methodology: Folder Structure as Agent Architecture&rdquo;, arXiv:2603.16021 &middot; github.com/RinDig/icm-architect</p>
+    </div>
+  </section>
+
+  <div class="overview" id="overview" hidden>
+    <div class="ovhead">
+      <h2 style="font-size: 20px;">All slides</h2>
+      <span class="spacer"></span>
+      <button class="btn" id="ovClose">Close</button>
+    </div>
+    <div class="ovgrid" id="ovgrid"></div>
+  </div>
+</main>
+
+<nav class="navbar" aria-label="Slide navigation">
+  <button class="btn" id="prevBtn" aria-label="Previous slide">&larr;<span class="btn-label">&nbsp;Back</span></button>
+  <button class="btn" id="nextBtn" aria-label="Next slide"><span class="btn-label">Next&nbsp;</span>&rarr;</button>
+  <div class="rail" id="rail"></div>
+  <span class="counter" id="counter">1 / 14</span>
+</nav>
+
+<script>
+(function () {
+  "use strict";
+
+  var STEPS = [
+    { id: "00_setup", job: "Remove setup friction. Nothing else.", out: "inventory.md", check: "Is everything the pair needs in reach, and nothing more?", when: "Mon 21 Sep" },
+    { id: "01_frame", job: "Work out what problem is really being solved.", out: "frame.md", check: "Would someone outside the run recognise this as the real problem?", when: "Tue 22 Sep" },
+    { id: "02_explore", job: "Open up the solution space. No judging.", out: "options.md", check: "Is anything here uncomfortable enough to be worth arguing about?", when: "Tue 22 Sep" },
+    { id: "03_converge", job: "Make the call and own the trade-off.", out: "direction.md", check: "Is what we gave up written down, not implied?", when: "Wed 23 Sep" },
+    { id: "04_make-tangible", job: "Build something people can react to.", out: "artefact-notes.md", check: "Can someone react to this without you narrating it?", when: "Wed–Thu 23–24 Sep" },
+    { id: "05_pressure-test", job: "Attack it before leadership does.", out: "pressure-test.md", check: "Which objection do we still have no answer to?", when: "Thu 24 Sep" },
+    { id: "06_playback", job: "Get a real decision.", out: "playback.md", check: "Did a decision get made, or did we just present?", when: "Fri 25 Sep" },
+    { id: "07_engineering-refinement", job: "Go from decision-ready to plan-ready.", out: "solution-scope.md", check: "Can Product, Design and Engineering each say “I can plan against this”?", when: "25 Sep – 8 Oct" },
+    { id: "08_vision-horizon", job: "Turn the solution into a 12-month arc.", out: "vision-horizon.md", check: "Can someone on B4B find something to disagree with in the one-sentence version?", when: "By Fri 9 Oct" }
+  ];
+
+  var ATTENTION = [0.34, 1.0, 0.58, 0.72, 0.28, 0.42, 0.56, 0.40, 0.94];
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var rail = document.getElementById("rail");
+  var counter = document.getElementById("counter");
+  var eyebrow = document.getElementById("slideEyebrow");
+  var prevBtn = document.getElementById("prevBtn");
+  var nextBtn = document.getElementById("nextBtn");
+  var overview = document.getElementById("overview");
+  var ovgrid = document.getElementById("ovgrid");
+  var ovBtn = document.getElementById("ovBtn");
+  var ovClose = document.getElementById("ovClose");
+  var current = 0;
+
+  slides.forEach(function (s, i) {
+    var label = (i + 1) + ". " + s.dataset.title;
+
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", label);
+    b.title = label;
+    b.addEventListener("click", function () { go(i); });
+    rail.appendChild(b);
+
+    var o = document.createElement("button");
+    o.type = "button";
+    var on = document.createElement("span");
+    on.className = "n";
+    on.textContent = (i + 1) < 10 ? "0" + (i + 1) : String(i + 1);
+    var ot = document.createElement("span");
+    ot.className = "t";
+    ot.textContent = s.dataset.title;
+    o.appendChild(on);
+    o.appendChild(ot);
+    o.addEventListener("click", function () { closeOverview(); go(i); });
+    ovgrid.appendChild(o);
+  });
+
+  var railBtns = Array.prototype.slice.call(rail.children);
+  var ovBtns = Array.prototype.slice.call(ovgrid.children);
+
+  function go(i) {
+    if (i < 0 || i >= slides.length) return;
+    slides[current].classList.remove("is-current");
+    current = i;
+    slides[current].classList.add("is-current");
+    slides[current].scrollTop = 0;
+    railBtns.forEach(function (b, n) {
+      b.setAttribute("aria-current", n === i ? "true" : "false");
+      b.classList.toggle("seen", n < i);
+    });
+    ovBtns.forEach(function (b, n) { b.setAttribute("aria-current", n === i ? "true" : "false"); });
+    counter.textContent = (i + 1) + " / " + slides.length;
+    eyebrow.textContent = slides[i].dataset.title;
+    prevBtn.disabled = (i === 0);
+    nextBtn.disabled = (i === slides.length - 1);
+  }
+
+  function openOverview() {
+    overview.hidden = false;
+    ovBtn.setAttribute("aria-expanded", "true");
+    ovClose.focus();
+  }
+  function closeOverview() {
+    overview.hidden = true;
+    ovBtn.setAttribute("aria-expanded", "false");
+  }
+
+  prevBtn.addEventListener("click", function () { go(current - 1); });
+  nextBtn.addEventListener("click", function () { go(current + 1); });
+  ovBtn.addEventListener("click", function () { overview.hidden ? openOverview() : closeOverview(); });
+  ovClose.addEventListener("click", closeOverview);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+    if (e.key === "Escape") { closeOverview(); return; }
+    if (!overview.hidden) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") { e.preventDefault(); go(current + 1); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(current - 1); }
+    else if (e.key === "Home") { e.preventDefault(); go(0); }
+    else if (e.key === "End") { e.preventDefault(); go(slides.length - 1); }
+    else if (e.key === "o" || e.key === "O") { e.preventDefault(); openOverview(); }
+  });
+
+  /* ---- step pipeline ---- */
+  var pipe = document.getElementById("pipe");
+  var detail = document.getElementById("stepDetail");
+
+  STEPS.forEach(function (s, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    var n = document.createElement("span");
+    n.className = "n";
+    n.textContent = s.id.slice(0, 2);
+    var nm = document.createElement("span");
+    nm.className = "nm";
+    nm.textContent = s.id.slice(3).replace(/-/g, " ");
+    b.appendChild(n);
+    b.appendChild(nm);
+    b.addEventListener("click", function () { showStep(i); });
+    pipe.appendChild(b);
+  });
+  var pipeBtns = Array.prototype.slice.call(pipe.children);
+
+  function field(label, value, isPath) {
+    var dl = document.createElement("dl");
+    dl.className = "field";
+    var dt = document.createElement("dt");
+    dt.textContent = label;
+    var dd = document.createElement("dd");
+    dd.textContent = value;
+    if (isPath) dd.className = "path";
+    dl.appendChild(dt);
+    dl.appendChild(dd);
+    return dl;
+  }
+
+  function showStep(i) {
+    var s = STEPS[i];
+    pipeBtns.forEach(function (b, n) { b.setAttribute("aria-selected", n === i ? "true" : "false"); });
+    detail.textContent = "";
+
+    var left = document.createElement("div");
+    var p = document.createElement("p");
+    p.className = "path";
+    p.style.cssText = "font-size:12.5px;color:var(--accent);margin-bottom:8px";
+    p.textContent = s.id + "/";
+    var job = document.createElement("p");
+    job.className = "job";
+    job.textContent = s.job;
+    left.appendChild(p);
+    left.appendChild(job);
+
+    var side = document.createElement("div");
+    side.className = "side";
+    side.appendChild(field("Produces", "output/" + s.out, true));
+    side.appendChild(field("The human check", s.check, false));
+    side.appendChild(field("When", s.when, false));
+
+    detail.appendChild(left);
+    detail.appendChild(side);
+  }
+
+  showStep(1);
+
+  /* ---- attention curve ---- */
+  (function drawChart() {
+    var g = document.getElementById("chartArea");
+    if (!g) return;
+    var NS = "http://www.w3.org/2000/svg";
+    var W = 760, H = 300;
+    var padL = 62, padR = 26, padT = 40, padB = 62;
+    var innerW = W - padL - padR;
+    var innerH = H - padT - padB;
+    var n = ATTENTION.length;
+    var baseY = padT + innerH;
+
+    function x(i) { return padL + (innerW * i) / (n - 1); }
+    function y(v) { return padT + innerH - v * innerH; }
+    function el(name, attrs) {
+      var e = document.createElementNS(NS, name);
+      for (var k in attrs) {
+        if (Object.prototype.hasOwnProperty.call(attrs, k)) e.setAttribute(k, attrs[k]);
+      }
+      return e;
+    }
+
+    var pts = ATTENTION.map(function (v, i) { return [x(i), y(v)]; });
+    var d = "M" + pts[0][0].toFixed(1) + "," + pts[0][1].toFixed(1);
+    for (var i = 0; i < pts.length - 1; i++) {
+      var p0 = pts[i === 0 ? 0 : i - 1];
+      var p1 = pts[i];
+      var p2 = pts[i + 1];
+      var p3 = pts[Math.min(i + 2, pts.length - 1)];
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      d += " C" + c1x.toFixed(1) + "," + c1y.toFixed(1) + " " + c2x.toFixed(1) + "," + c2y.toFixed(1) + " " + p2[0].toFixed(1) + "," + p2[1].toFixed(1);
+    }
+
+    g.appendChild(el("path", { "class": "area", d: d + " L" + pts[n - 1][0].toFixed(1) + "," + baseY + " L" + pts[0][0].toFixed(1) + "," + baseY + " Z" }));
+    g.appendChild(el("line", { "class": "axis", x1: padL - 12, y1: baseY, x2: W - padR, y2: baseY }));
+    g.appendChild(el("path", { "class": "curve", d: d }));
+
+    var hi = el("text", { "class": "ylbl", x: 8, y: padT + 4 });
+    hi.textContent = "HEAVY";
+    g.appendChild(hi);
+    var lo = el("text", { "class": "ylbl", x: 8, y: baseY });
+    lo.textContent = "LIGHT";
+    g.appendChild(lo);
+
+    ATTENTION.forEach(function (v, i) {
+      g.appendChild(el("circle", { "class": "dot", cx: x(i).toFixed(1), cy: y(v).toFixed(1), r: (i === 1 || i === 8) ? 5 : 3.2 }));
+      var t = el("text", { "class": "lbl", x: x(i).toFixed(1), y: baseY + 20, "text-anchor": "middle" });
+      t.textContent = STEPS[i].id.slice(0, 2);
+      g.appendChild(t);
+    });
+
+    [[1, "01_frame", "middle"], [8, "08_vision-horizon", "end"]].forEach(function (pair) {
+      var t = el("text", { "class": "lbl", x: x(pair[0]).toFixed(1), y: baseY + 40, "text-anchor": pair[2], fill: "var(--accent)" });
+      t.textContent = pair[1];
+      g.appendChild(t);
+    });
+
+    var note = el("text", { "class": "note", x: x(4).toFixed(1), y: (y(0.28) - 16).toFixed(1), "text-anchor": "middle" });
+    note.textContent = "the work grinds — stop asking";
+    g.appendChild(note);
+  })();
+
+  go(0);
+})();
+</script>
+
+</body></html>

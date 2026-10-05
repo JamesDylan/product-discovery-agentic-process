@@ -1,4 +1,4 @@
-# 07_engineering-refinement — decision-ready to plan-ready (25 Sep → 8 Oct)
+# 07_engineering-refinement — decision-ready to plan-ready (after 9 Oct)
 
 One job: reach a scope all three disciplines will plan against. Output was decision-ready,
 **not frozen** — iteration expected, drift not.
@@ -11,7 +11,7 @@ One job: reach a scope all three disciplines will plan against. Output was decis
 - Working (this run): `../04_make-tangible/output/artefact-notes.md`
 - Reference: `../../_shared/decision-log.md`
 
-## Definition of done (Fri 9 Oct)
+## Definition of done (date TBD — see `_shared/timeline.md`)
 > An agreed and sufficiently resolved solution scope and design direction that Product, Design and
 > Engineering are comfortable planning against.
 

@@ -1,11 +1,8 @@
 # Report design system — "The Company Layer"
 
-Reverse-engineered from `B4B Strategy Report.html`. This is the visual contract for every report
-this workspace produces. It is a **reference layer asset** — stable across runs, like
-`house-view.md`. Change it here, never in a generated report.
+This is the visual contract for every report this workspace produces. It is a **reference layer asset** — stable across runs, like `house-view.md`. Change it here, never in a generated report.
 
-The source was a compiled artifact with 100% inline styles. A generated report should use real CSS
-custom properties and classes. The **values** below are the contract; the authoring method is not.
+The source was a compiled artifact with 100% inline styles. A generated report should use real CSS custom properties and classes. The **values** below are the contract; the authoring method is not.
 
 ---
 

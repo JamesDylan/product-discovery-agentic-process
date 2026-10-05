@@ -1,3 +1,26 @@
 .DS_Store
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+
+# Company-specific problem-space runs and outputs
+/01-company-acquisition/
+/02-company-guardrails/
+/03-test-marketing-email-acceptance/
+/04-reduce-churn/
+/99-vision-synthesis/
+/100-report/
+/101-prototype-handoff/
+
+# Company-specific reference layer (real B4B/Serko context, decisions, dates)
+/_shared/b4b-context.md
+/_shared/house-view.md
+/_shared/decision-log.md
+/_shared/timeline.md
+/_shared/vision-principles.md
+/_shared/accelerator-brief.md
+/_shared/report-content-schema.md
+/_shared/report-design-system.md
+/_shared/_scratch.md
+
+# Internal review notes referencing real runs/costs
+/lab-flow-review.md

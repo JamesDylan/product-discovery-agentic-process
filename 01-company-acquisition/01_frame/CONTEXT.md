@@ -18,8 +18,7 @@ This is the cheapest gate in the pipeline — correction here costs an hour, cor
 ## Process
 1. **The problem behind the problem.** What causes the stated problem? If you solved the stated
    problem perfectly and nothing improved, what would the real cause have been?
-2. **Whose problem.** Who feels it, when, how often. Who must act for it to be solved, and what is
-   in it for them. Who currently does the manual work, and do they want it gone?
+2. **Whose problem.** Who feels it, when, how often. Who must act for it to be solved, and what is in it for them. Who currently does the manual work, and do they want it gone?
 3. **Separate the outcomes.** Customer outcome. Business outcome. Say where they are in tension.
 4. **Evidence, both ways.** Strongest evidence this is real and material. Strongest evidence a
    sceptic would point to. Where the number actually came from.
@@ -34,8 +33,7 @@ This is the cheapest gate in the pipeline — correction here costs an hour, cor
 - Framing too broad to resolve in three days, or so narrow it yields a feature not a direction
 
 ## Outputs
-- `frame.md` → `output/` — problem statement (one sentence), outcomes, evidence for and against,
-  load-bearing assumptions, explicit out-of-scope
+- `frame.md` → `output/` — problem statement (one sentence), outcomes, evidence for and against, load-bearing assumptions, explicit out-of-scope
 
 ## Human check
 Read the problem statement aloud. If it could not be wrong, it says nothing — rewrite it.

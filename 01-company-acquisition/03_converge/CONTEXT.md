@@ -19,11 +19,9 @@ One job: one direction, with the trade-off owned rather than hidden.
    cleanly killed is still live, and the convergence is false.
 3. **Say the trade-off out loud.** Complete these:
    - "We are choosing X, which means we accept worse ______."
-   - "This is right *if* ______ is true."
-   - "We reverse this if ______."
-4. **Check against the 12-month horizon.** Does this open options in a year or close them? Step on
-   a path, or local optimum? If we shipped only this, would the vision still hold? An option that
-   wins on three-day criteria but strands the domain is the wrong option — say so.
+   - "This is right *if* Y is true."
+   - "We reverse this if Z."
+1. **Check against the 12-month horizon.** Does this open options in a year or close them? Step on a path, or local optimum? If we shipped only this, would the vision still hold? An option that wins on three-day criteria but strands the domain is the wrong option — say so.
 
 ## Blind spots to call out
 - **False consensus** — agreement because nobody wanted to spend the time disagreeing
@@ -32,8 +30,7 @@ One job: one direction, with the trade-off owned rather than hidden.
 - **Dodging the hard option** because engineering "probably won't like it" — that is `07`'s call, not this stage's
 
 ## Outputs
-- `direction.md` → `output/` — chosen direction, why, what was rejected and why, the trade-off
-  stated plainly, reversal conditions
+- `direction.md` → `output/` — chosen direction, why, what was rejected and why, the trade-off stated plainly, reversal conditions
 - Append the call to `../../_shared/decision-log.md`
 
 ## Human check

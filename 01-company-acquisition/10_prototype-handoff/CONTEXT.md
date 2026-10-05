@@ -18,6 +18,29 @@ cast and a declared fake/real line. The lab's own playbook is blunt: *"If you ca
 question, you don't know what to prototype."* Nothing upstream in this pipeline produces that
 question. This stage does.
 
+## Ask, don't invent
+
+The stage can decompose horizons into screens and map personas mechanically, but it cannot know
+the owner's actual intent for several slots — guessing here produces a brief that looks finished
+but asserts things nobody said. Before the brief is written, confirm the following with the owner
+directly, one question at a time, per `operating-principles.md`. Propose a default only where this
+run's own docs give an unambiguous, sourced answer; otherwise ask and wait.
+
+- **The exact on-screen copy.** If the vision doc or its inputs don't supply literal wording for
+  the ask/headline/body, do not invent product copy — ask for it.
+- **The persona / actor to cast**, when more than one lab cast member could plausibly stand in for
+  the vision's segment, and how specific the example needs to be. Propose the closest match,
+  confirm before locking it in.
+- **Whether a new data fixture is needed**, and if so, how much specificity it should carry — a
+  fully named, dated, routed example, or something intentionally generic. Don't default to maximum
+  specificity; ask.
+- **`productArea` for the hub entry**, whenever the surface sits on a genuine taxonomy boundary.
+- **`owner:`**, exactly as their `git config user.name` (see Ownership below) — confirm, never guess.
+- **The slug**, if more than one reasonable option exists.
+
+This step exists so the stage stays reusable across every run: the questions above don't change
+run to run, only the answers do.
+
 ## Inputs
 - Reference (every run): `../../_shared/operating-principles.md`
 - Reference (every run): `../../_shared/house-view.md`

@@ -4,9 +4,9 @@ Pipeline workspace.
 
 ## Identity
 - **Problem space:** How companies form, grow and maintain their structure in B4B without relying on a manually maintained, attested admin.
-- **Sphere of influence:** <fill — which part of B4B this run owns a point of view over>
-- **Pair:** Product — <name> · Design — <name>
-- **Owner of the 12-month view:** <name — not James by default>
+- **Sphere of influence:** Acquiring the whole company, not just its first user. Everything from first contact to a first booking, and on to a company that grows and stays structured without an admin. Includes setting up the company, adding team members, joining, invites, helping colleagues find each other, merging duplicate companies, company hierarchy, and getting the right people into the right roles. Not only the booking flow: how B4B introduces users to the value they came for, so they hire B4B for their job to be done. (Widened 2026-09-30 — see `01_frame/output/frame.md`.)
+- **Pair:** Product — James · Design — Chris
+- **Owner of the 12-month view:** James, for now `[interim — reassign after playback]`
 
 ## Questions in scope
 1. How do companies form and grow when there's no attested admin?
