@@ -33,10 +33,6 @@ conversation (`/clear`) before the next stage.
 **Where is a run up to?** Type `status <run>`, or look in each stage's `output/` folder in Finder.
 A file there means done.
 
-**Want Claude to move between stages for you?** `/run-pipeline <run>` does rows 4–10 in one
-session and pauses at the live meetings. It costs more than `work`, and it relays questions through
-a helper agent, so it is easier for a guessed answer to slip in. Use it once you trust the stages.
-
 ---
 ---
 
@@ -321,7 +317,7 @@ deliverable.
 | `08` keeps slipping | It is treated as a write-up, not the deliverable | It is the deliverable. Cut polish in `04` instead. |
 | The output feels generic | `_shared/house-view.md` is thin | Fix that file, not the stage folders |
 | A stage's instructions feel wrong | They probably are | Rewrite them in `_template`, then run `./eval` to check nothing broke |
-| A stage keeps answering questions you should answer | `/run-pipeline` is guessing instead of asking | Run that stage by hand instead, or answer its list of questions directly |
+| A stage answers its own questions | Claude is guessing instead of asking | Say "ask me, one question at a time". If it repeats, tighten that stage's `CONTEXT.md` in `_template` |
 
 ## Rules that do not change
 

@@ -59,10 +59,6 @@ next on…") as the same command. `<run>` may be a partial name: `expense` match
 **`work <run>/<step>`** — manual: run one named step. Go straight to step 4 above, then step 5.
 If a named input is missing, follow the run's `CONTEXT.md` rule — name the missing step, don't guess.
 
-**`/run-pipeline <run>`** — the orchestrator: many steps in one session, fresh subagent per step.
-Defined in `.claude/skills/run-pipeline/SKILL.md`. Use it only when the user asks for it; `work`
-is the default.
-
 **`work 99-…` / `work 100-…` / `work 101-…`** — run that terminal folder's `CONTEXT.md`. Same
 stop rule as step 5.
 

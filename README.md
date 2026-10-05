@@ -39,18 +39,13 @@ go to step 3.
 | `work <run>` | **Guided.** Proposes the next stage, runs it once you confirm, stops at the human check |
 | `work <run>/<stage>` | **Manual.** Runs that one stage. Use it to skip ahead, go back, or re-run |
 | `status` or `status <run>` | Lists which stages are done and what's next. Changes nothing |
-| `/run-pipeline <run>` | **Orchestrator.** Moves through every stage in one session, with a fresh helper agent per stage. Stops for each human check and at the live meetings (`06`, `07`) |
 
 `<run>` can be part of the name — `work churn` finds `04-reduce-churn`. Close wording works too
 ("what's next on churn?"). The exact behaviour is defined in `CLAUDE.md` → Commands.
 
-**`work` or `/run-pipeline`?** Start with `work`. It is cheaper and more predictable, and you see
-every question yourself. `/run-pipeline` saves you starting new conversations, but it costs more
-and relays questions through a helper agent. Use it once you trust the stages.
-
 **Two habits that matter:**
 
-- **New conversation for each stage** (when using `work`). In one long chat, context from earlier
+- **New conversation for each stage.** In one long chat, context from earlier
   stages leaks into later ones and Claude's questions get weaker.
 - **Edit any output before the next stage.** The next stage reads whatever is in `output/`. You are
   never stuck with what Claude wrote.
