@@ -13,7 +13,7 @@ The report stage runs in two places, against two different argument documents:
 | Stage | Source document | Scope of the claim |
 |---|---|---|
 | `NN-<run>/09_report` | `../08_vision-horizon/output/vision-horizon.md` | one problem space |
-| `100-report` | `../99-vision-synthesis/output/b4b-12-month-vision.md` | all of B4B |
+| `100-report` | `../99-vision-synthesis/output/12-month-vision.md` | all of B4B |
 
 Below, **`<source>`** means whichever of those two the stage was pointed at. The schema and the
 design system are identical either way — a single-run report is not a lesser artefact, it is a
@@ -50,7 +50,7 @@ hero:
 must be independently sourced, and each must appear again later with its working shown. No need to link to the working here. Four stats you cannot source is the signal to cut the strip, not to soften the numbers.
 
 **Source:** `<source>` (the through-line, or the run's bet) · *derive* the stats from
-`05_pressure-test` and `_shared/b4b-context.md`.
+`05_pressure-test` and `_shared/product-context.md`.
 
 ## Verdict — C5
 
@@ -160,7 +160,7 @@ synthesis output wherever a run stage is named.
 |---|---|---|
 | Hero, Verdict | C3, C4, C5 | `<source>` — through-line / the bet + the one sentence |
 | The journey | C7 | `<source>` — sequenced horizons |
-| What changed | C8 + evidence table | `_shared/b4b-context.md` · `02_explore` competitive scan |
+| What changed | C8 + evidence table | `_shared/product-context.md` · `02_explore` competitive scan |
 | What we own | C9 | `<source>` — capabilities gained |
 | Where we stall | C10 + C11 | `03_converge/output/direction.md` · `05_pressure-test` |
 | What we build | C11 + C12 | `<source>` — Now/Next/Later with stated dependency |

@@ -136,7 +136,7 @@ population changes. Worth one question to Marzena before `05`.
 - **Framed as:** close the 30-day session gap through proactive nudges plus in-page
   micro-actions, without needing invoicing and expenses fixed first. *(relayed)*
 - **Watch:** "approvals" is in the nudge list. B4B has no approval workflow today
-  (`b4b-context.md`). `02_explore` should treat approvals as a new build, not an existing hook.
+  (`product-context.md`). `02_explore` should treat approvals as a new build, not an existing hook.
 
 ## Explicit out of scope
 

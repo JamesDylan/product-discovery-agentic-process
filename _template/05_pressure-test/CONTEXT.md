@@ -5,7 +5,7 @@ One job: break the direction while it's still cheap to fix.
 ## Inputs
 - Reference (every run): `../../_shared/operating-principles.md`
 - Reference (every run): `../../_shared/house-view.md`
-- Reference: `../../_shared/b4b-context.md`
+- Reference: `../../_shared/product-context.md`
 - Working (this run): `../04_make-tangible/output/artefact-notes.md`
 - Working (this run): `../03_converge/output/direction.md`
 - Working (this run): `../01_frame/output/frame.md` (load-bearing assumptions)

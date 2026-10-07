@@ -1,6 +1,6 @@
-# 100-report — render the B4B vision as an asset a room will believe
+# 100-report — render the vision as an asset a room will believe
 
-One job: turn `b4b-12-month-vision.md` into a single self-contained HTML file the team can open in
+One job: turn `12-month-vision.md` into a single self-contained HTML file the team can open in
 front of stakeholders and defend line by line.
 
 **Optional and discrete.** Run it when the vision needs to travel. Skip it when the synthesis is
@@ -20,8 +20,8 @@ gets asserted here.
 - Reference (every run): `../_shared/house-view.md`
 - Reference: `../_shared/report-design-system.md` — the visual contract. Non-negotiable.
 - Reference: `../_shared/report-content-schema.md` — the slot map and stage→block mapping
-- Working: `../99-vision-synthesis/output/b4b-12-month-vision.md` — **the source.**
-- Working: `../_shared/b4b-context.md` — for the "what changed" section and the hero stats
+- Working: `../99-vision-synthesis/output/12-month-vision.md` — **the source.**
+- Working: `../_shared/product-context.md` — for the "what changed" section and the hero stats
 - Working: `../_shared/decision-log.md` — for the caveats section and the method note
 - **Do NOT load:** the runs' intermediate stages. Reach back and this becomes a rewrite. If the
   synthesis output doesn't carry the argument, fix it in `99`.

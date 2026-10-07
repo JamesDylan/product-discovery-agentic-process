@@ -17,16 +17,16 @@ This run skipped several stages on purpose (James, solo test):
 
 | Section | Block | Schema wants | What's sourceable | Gap |
 |---|---|---|---|---|
-| Hero | C4 stats | 4 stats | 4, from `_shared/b4b-context.md` (invite/join 40% vs 80%, corporate email 48% vs 70-75%, single-to-multi 12% vs 15-25%, single-user churn 52% vs 19%) | None — fillable |
+| Hero | C4 stats | 4 stats | 4, from `_shared/product-context.md` (invite/join 40% vs 80%, corporate email 48% vs 70-75%, single-to-multi 12% vs 15-25%, single-user churn 52% vs 19%) | None — fillable |
 | Verdict | C5 | one sentence | vision-horizon.md "The one sentence" | None — fillable |
 | Journey | C7, 5 steps | 5 | 3 (Now/Next/Later) | Schema allows 3 cells when only 3 exist — not a real gap |
-| What changed | C8, 3 rival cards | 3 | 2 (Perk, Engine — `b4b-context.md`) | 1 short, no third rival evidenced anywhere |
+| What changed | C8, 3 rival cards | 3 | 2 (Perk, Engine — `product-context.md`) | 1 short, no third rival evidenced anywhere |
 | What we own | C9, 5 items + 1 | 5+1 | 3 (Now/Next/Later capabilities gained) | 2 short |
 | Where we stall | C10 flywheel + C11 | flywheel + leaks | none — `direction.md` missing, `05_pressure-test` empty | Full gap, no source material at all |
 | What we build | C11 + C12 | Now/Next/Later, a trade | full — Now/Next/Later chain + "What we're betting against" (accent_band candidate) | None — fillable |
 | Where this lands | C14 table + C12, owners | scope + owners | none — `07_engineering-refinement` empty | Full gap, no source material at all |
 | Read with care | C15, 5 items | 5 | 5, assembled from vision-horizon.md "Open questions" (3) + its own process-note caveats (house-view empty; `03_converge` skipped) | None once assembled — fillable |
-| Sources | C16, 12 items | 12 | ~4 internal docs (`b4b-context.md`, `vision-horizon.md`, `options.md`; `decision-log.md` has no entries) | Far short, no external dated sources gathered this run |
+| Sources | C16, 12 items | 12 | ~4 internal docs (`product-context.md`, `vision-horizon.md`, `options.md`; `decision-log.md` has no entries) | Far short, no external dated sources gathered this run |
 
 ## Decisions (James, 2026-09-21)
 - **What changed (rivals):** run with 2 cards, not 3. Off-schema layout, real content over padding.

@@ -6,7 +6,7 @@ the problem as handed over.
 ## Inputs
 - Reference (every run): `../../_shared/operating-principles.md`
 - Reference (every run): `../../_shared/house-view.md`
-- Reference: `../../_shared/b4b-context.md`
+- Reference: `../../_shared/product-context.md`
 - Working (this run): `../00_setup/output/inventory.md`
 - Working (this run): `../CLAUDE.md`
 - **Do NOT load:** `../02_explore/` onward. No solutions in this stage.

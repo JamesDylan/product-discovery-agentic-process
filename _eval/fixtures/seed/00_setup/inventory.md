@@ -11,7 +11,7 @@ stand on rather than stalling.
 | Airline credit rules matrix | Per-carrier expiry, name-change and fare-difference rules, 14 carriers | Opened | 7 months — partial |
 | Travel manager interviews (n=9) | Transcripts, 2024 study on post-booking admin load | Opened | 14 months — **flag as stale** |
 | Support ticket taxonomy | Tickets tagged `credit`, `residual`, `unused-ticket` | Opened | Current |
-| Design system | Existing B4B components, including balance and wallet patterns | Opened | Current |
+| Design system | Existing product components, including balance and wallet patterns | Opened | Current |
 | Finance reconciliation spec | How credits currently appear (or don't) in company reporting | **Cannot open** — owner on leave | Unknown |
 
 ## Current-state numbers

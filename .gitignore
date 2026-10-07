@@ -12,7 +12,7 @@
 /101-prototype-handoff/
 
 # Company-specific reference layer (real B4B/Serko context, decisions, dates)
-/_shared/b4b-context.md
+/_shared/product-context.md
 /_shared/house-view.md
 /_shared/decision-log.md
 /_shared/timeline.md

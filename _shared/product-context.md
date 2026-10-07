@@ -1,4 +1,4 @@
-# B4B Context
+# Product Context — B4B
 
 > Keep it factual. Mark anything uncertain as `[assumption]`.
 
@@ -97,7 +97,7 @@ Source: James, 2026-09-28 setup session. Per-day figures are bookings per day un
 - DSA analysis DSA-208 is due **30 Sep 2026** (during the workshop).
 - Several dashboard tests were stopped before they had enough data. They taught us nothing.
 
-## The Serko AI narrative
+## Competitive / positioning context (the Serko AI narrative)
 - What is being said externally about Serko AI: Serko.ai is a separate branded product (David Holyoke, skip-level to James), beta since May 2026, enterprise GA targeted September 2026 `[assumption]` — the Serko portfolio says open beta in September 2026, not GA. Unresolved. Public messaging (Serko blog, BTN) positions it as Serko's AI advantage/2030 pathway.
-- Where B4B does / does not sit in that story: Explicitly NOT the front door. Internal boundary rule (`b4b-context.md`): B4B initiatives that leverage AI should expose Serko.ai capability, not build competing AI. Result — B4B has no customer-facing agentic surface today; Serko.ai isn't yet wired to be one either. Long-term the Platform will surface shared functionality. This work is also here to ensure we dont build in parallel when we could share.
+- Where B4B does / does not sit in that story: Explicitly NOT the front door. Internal boundary rule (`product-context.md`): B4B initiatives that leverage AI should expose Serko.ai capability, not build competing AI. Result — B4B has no customer-facing agentic surface today; Serko.ai isn't yet wired to be one either. Long-term the Platform will surface shared functionality. This work is also here to ensure we dont build in parallel when we could share.
 - The gap that neither Serko.ai or B4B has: Perk already lets users book/expense/create events from inside Claude/ChatGPT (live). If the assistant becomes the booking surface, B4B's supply advantage becomes a wholesale channel, not a product — that's the teardown's own framing, and it's not yet answered anywhere in the roadmap. This is a live strategic exposure, not a hypothetical one.

@@ -44,7 +44,7 @@ Two caveats keep this from being an automatic switch:
 | 6 | Regrettable churners are mainly multi-user arrangers | Marzena: "Yes, confirmed" | Closed. `01`'s flag #4 is resolved. |
 
 **Number discrepancy to resolve before Friday.** James gives multi-user vs single-user churn as
-"~42% vs ~62%". `b4b-context.md` gives "52% annual churn vs 19% at 10+ users". These may be
+"~42% vs ~62%". `product-context.md` gives "52% annual churn vs 19% at 10+ users". These may be
 different cuts (multi-user vs 10+ users; different periods). Both cannot go on the same slide
 without a note on which definition each uses.
 

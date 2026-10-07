@@ -16,7 +16,7 @@ ideas, or forming a point of view — stop them and say so. That boundary is thi
 
 ## Process
 1. Walk `../../_shared/setup-questionnaire.md` with the user and write answers into
-   `../../_shared/b4b-context.md`.
+   `../../_shared/product-context.md`.
 2. Inventory what exists: research (note anything >12 months old), Productboard, analytics,
    prior designs, design-system assets, named SMEs, customer-facing colleagues.
 3. For each item, test *access*, not content. An unreachable asset on Day 1 is the failure mode.
@@ -29,8 +29,8 @@ ideas, or forming a point of view — stop them and say so. That boundary is thi
 
 ## Outputs
 - `inventory.md` → `output/` — assets, access status, gaps by severity, SMEs to book
-- `../../_shared/b4b-context.md` populated
+- `../../_shared/product-context.md` populated
 
 ## Human check
-Open `b4b-context.md` and read it end to end. If you learn nothing from your own file, it isn't
+Open `product-context.md` and read it end to end. If you learn nothing from your own file, it isn't
 filled yet.

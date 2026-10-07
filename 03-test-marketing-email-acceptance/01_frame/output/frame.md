@@ -32,7 +32,7 @@ already have a good ROI on the users they can reach.
 
 **For — this is real:**
 - ~19% opt-in at the registration page; ~25% among companies that go on to activate. [source: James,
-  raw number, no file reference — not yet in `b4b-context.md`]
+  raw number, no file reference — not yet in `product-context.md`]
 - The activation/opt-in correlation (18% → 25%) is directionally consistent with the "ask before
   they're sold" hypothesis: people who prove out the product are more willing to hear from it.
 - Marketing already has positive ROI on the consented base today — this isn't a hypothetical
@@ -43,7 +43,7 @@ already have a good ROI on the users they can reach.
   can reasonably ask how much upside is actually on the table.
 - The 18%→25% correlation is not causal. Motivated users may simply be more likely to both activate
   *and* opt in, for reasons that have nothing to do with when you ask — self-selection, not timing.
-- `b4b-context.md` already documents larger, better-evidenced gaps in the same funnel: invite/join
+- `product-context.md` already documents larger, better-evidenced gaps in the same funnel: invite/join
   acceptance (40% vs 80% target) and activation itself (~18%). If marketing consent moves and those
   don't, it's not obvious churn or reactivation improves at all.
 
@@ -60,7 +60,7 @@ already have a good ROI on the users they can reach.
 3. A user who declines at signup and is asked again later will not perceive the second ask as
    spammy or trust-eroding, provided the trigger is a genuine product moment rather than a
    scheduled nag. Not tested.
-4. GDPR consent rules (explicit opt-in, no pre-ticked boxes, per `b4b-context.md`) set a ceiling on
+4. GDPR consent rules (explicit opt-in, no pre-ticked boxes, per `product-context.md`) set a ceiling on
    achievable opt-in rate that no UX change can move past. Direction, not magnitude, known.
 
 ## The cut
@@ -79,7 +79,7 @@ polish, because it moves the ask past the moment people default to "no."
   something to solve here.
 - Proving assumptions 1 and 2 — that's `05_pressure-test`'s job, not `01_frame`'s.
 
-## Out-of-scope note for `_shared/b4b-context.md`
+## Out-of-scope note for `_shared/product-context.md`
 
-The 19%/25% marketing-consent figures aren't currently recorded in `b4b-context.md`. Worth adding
+The 19%/25% marketing-consent figures aren't currently recorded in `product-context.md`. Worth adding
 so the next stage — or a different run — doesn't have to re-derive them from a chat transcript.

@@ -1,6 +1,6 @@
 # Setup questionnaire — configure the factory once
 
-Fills `b4b-context.md`. Answer fast and roughly; mark anything uncertain `[assumption]`.
+Fills `product-context.md`. Answer fast and roughly; mark anything uncertain `[assumption]`.
 A rough answer in the file beats a perfect one in someone's head.
 
 1. What is B4B, in two sentences, to someone who has never seen it?

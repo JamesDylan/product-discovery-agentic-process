@@ -16,13 +16,13 @@ items below are still open questions only James can answer — see the bottom se
 | "Churn Departures" (Claude artifact, James, updated 2026-09-17)                                                                  | **Confirmed** — read directly                                                              | 6 days old            | Already synthesises DSA "Metrics That Matter" + Marzena's churn model (Jun 2026), DSA "Churn Analysis" deck (2 Sep 2026), the arranger survey (n=407), Bcom Travel Trends Tracker Wave 6, and Booking Visibility DSA-193 into churn signals and named "jobs to be done." This is the single richest thing that already exists for this run. |
 | DSA/Bcom raw decks (Google Slides) — "Churn insights from DSA" (24 Jun 2026) and Bcom Steerco "Deck on churn" (9 Sep 2026)       | **Not verified** — Google Drive connector in this session is OAuth-only, not authenticated | Current               | Links exist and were found via Slack, so likely fine for James directly. The Churn Departures artifact already draws from both.                                                                                                                                                                                                             |
 | Travel arranger survey visualisation (James, netlify, password-protected, 400+ responses) — `travel-arranger-survey.netlify.app` | **Not independently tested** (password form)                                               | Shared 16 Jun 2026    | Password found in Slack ("B4BProduct"). Should open fine for James directly.                                                                                                                                                                                                                                                                |
-| "Chicago session (Chase Voss)" — named in b4b-context.md                                                                         | **Unresolved**                                                                             | —                     | Only match found is a "GBTA Chicago 2026" Confluence page — conference logistics, not churn notes. Chase Voss is a real, active Bcom counterpart (Steerco/escalation threads), but no distinct "Chicago churn session" write-up was found. Flag as a possible mismatch — see open questions.                                                |
-| Bcom Travel Trends Tracker Wave 6                                                                                                | Already used inside Churn Departures                                                       | —                     | b4b-context.md itself flags it "unverified internally" — that caveat still stands.                                                                                                                                                                                                                                                          |
+| "Chicago session (Chase Voss)" — named in product-context.md                                                                         | **Unresolved**                                                                             | —                     | Only match found is a "GBTA Chicago 2026" Confluence page — conference logistics, not churn notes. Chase Voss is a real, active Bcom counterpart (Steerco/escalation threads), but no distinct "Chicago churn session" write-up was found. Flag as a possible mismatch — see open questions.                                                |
+| Bcom Travel Trends Tracker Wave 6                                                                                                | Already used inside Churn Departures                                                       | —                     | product-context.md itself flags it "unverified internally" — that caveat still stands.                                                                                                                                                                                                                                                          |
 
 ## Productboard
 
 - Connector is present but **not authenticated** this session (auth-only tool, no data-read tool
-  until OAuth completes). Entries referenced in b4b-context.md ("Multiple. Depends what we want.")
+  until OAuth completes). Entries referenced in product-context.md ("Multiple. Depends what we want.")
   could not be inventoried.
 - Degrading, not blocking: Jira already surfaces some adjacent roadmap detail directly
   (e.g. TAL-478, the post-join "who is your admin" widget, tied to the Personalised Landing
@@ -50,7 +50,7 @@ items below are still open questions only James can answer — see the bottom se
 - Degrading: component-level design system (Figma) unreachable this session; Miro partly
   substitutes for early-stage workshop material.
 
-## SMEs (cross-checked against b4b-context.md)
+## SMEs (cross-checked against product-context.md)
 
 - **Matt Weaver** — Head of Data. Confirmed active: shared the 9 Sep 2026 churn deck in a small
   group DM with Lilly, Craig McGuff, David Holyoke, Kathryn Hoolihan, Liz Fraser, Francis Somera.
@@ -65,15 +65,15 @@ items below are still open questions only James can answer — see the bottom se
 - **Melissa Helyer-Akhara** — Head of Design. Owns #team-design-b4b; not seen discussing churn
   directly in what surfaced.
 
-New names surfaced, not in b4b-context.md's SME list, directly relevant to this run's sphere:
+New names surfaced, not in product-context.md's SME list, directly relevant to this run's sphere:
 - **Anna Bondarenko** — running a live experiment ("Converting Self-Bookers into Arranger
   Recruiters", launched 3 Sep 2026) that touches this run's overlap question (Q3 in scope).
 - **Zac Ma** — running a live experiment ("Personalised Landing Experience for New Joiners",
   started 18 Sep 2026) directly in this run's sphere — the post-join dashboard.
 - **Chase Voss** (chase.voss@booking.com) — active Bcom counterpart across Steerco/escalation
-  threads; possibly the "Chicago session" contact from b4b-context.md — unconfirmed.
+  threads; possibly the "Chicago session" contact from product-context.md — unconfirmed.
 - **"Matt G" (Bcom)** — gave an in-person churn-reduction talk to the Auckland team (~12 Jun
-  2026). Distinct from Matt Weaver (Serko). b4b-context.md's SME list may be conflating the two.
+  2026). Distinct from Matt Weaver (Serko). product-context.md's SME list may be conflating the two.
 
 ## Customer-facing colleagues
 
@@ -114,7 +114,7 @@ Answered here with what the evidence points to — James still needs to confirm 
 
 2. **What are you assuming that was last checked over a year ago?**
    Candidate: the "Chicago session (Chase Voss)" reference and the Bcom Travel Trends Tracker
-   Wave 6 ("unverified internally," per b4b-context.md) are both flagged, one way or another, as
+   Wave 6 ("unverified internally," per product-context.md) are both flagged, one way or another, as
    unconfirmed. The only Chicago match found (GBTA Chicago 2026) is conference logistics for an
    event over a year prior to today's date. Confirm what "Chicago session" actually refers to.
 

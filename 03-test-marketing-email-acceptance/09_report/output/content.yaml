@@ -23,7 +23,7 @@ hero:
     - { value: "48%", qualifier: "vs 70–75% target", caption: "Corporate email adoption" }
     - { value: "12%", qualifier: "vs 15–25% healthy range", caption: "Single-to-multi-user conversion" }
     - { value: "52%", qualifier: "vs 19% at 10+ users", caption: "Annual churn, single-user orgs" }
-  # source: _shared/b4b-context.md, "Current state numbers" / "Where adoption is strong / weak".
+  # source: _shared/product-context.md, "Current state numbers" / "Where adoption is strong / weak".
   # Not this run's own evidence — 05_pressure-test didn't run — but the baseline the Next horizon
   # bets on generalising into.
 
@@ -58,7 +58,7 @@ stages:
         items:
           - { kicker: "COMPETITIVE MOVE", title: "Engine — cashback undercuts \"free\"", body: "Engine's card rebate, up to 10%, reads as cheaper than B4B's free-to-use pitch, even though B4B has no fee at all.", callout_label: "Watch:", callout_body: "B4B's counter is the free-platform and Booking.com-funnel argument — structural, not a marketing claim.", accent: "coral" }
           - { kicker: "COMPETITIVE MOVE", title: "Perk — agentic booking, live", body: "Perk shipped MCP-based booking inside Claude and ChatGPT on 19 Aug, ahead of Serko.ai's enterprise GA (Sept 2026).", callout_label: "The catch:", callout_body: "If the assistant becomes the booking surface, B4B's supply advantage becomes a wholesale channel, not a product. Unresolved in the roadmap.", accent: "coral" }
-        # source: _shared/b4b-context.md, "Commercial — Competitive pressure". Schema wants 3; James's call: run with 2.
+        # source: _shared/product-context.md, "Commercial — Competitive pressure". Schema wants 3; James's call: run with 2.
 
   - id: "what-we-own"
     badge: "02"
@@ -144,14 +144,14 @@ stages:
       caution_list:
         items:
           - { title: "The core assumption is untested", body: "Re-asking at proof beating a cold ask is the load-bearing belief — flagged for 05_pressure-test, which hasn't run this cycle." }
-          - { title: "Marketing consent might be a symptom, not a lever", body: "It could be one more instance of the funnel gaps b4b-context.md already documents — invite acceptance, activation — rather than an independent driver of churn." }
+          - { title: "Marketing consent might be a symptom, not a lever", body: "It could be one more instance of the funnel gaps product-context.md already documents — invite acceptance, activation — rather than an independent driver of churn." }
           - { title: "The bet skipped direction.md's scrutiny", body: "08_vision-horizon picked Option 1 straight from options.md's unranked list. 03_converge would normally own that trade-off call, with its own pressure." }
           - { title: "House view is still empty", body: "This whole argument runs on generic B4B reasoning, not James's tested point of view on what good looks like here." }
           - { title: "The asset inventory was skipped too", body: "00_setup/output/inventory.md wasn't produced. 'Mine what exists' in 02_explore ran on frame.md and session context only, not a real inventory." }
 
 sources:
   items:
-    - { index: 1, label: "_shared/b4b-context.md — B4B baseline metrics and constraints", url: "" }
+    - { index: 1, label: "_shared/product-context.md — B4B baseline metrics and constraints", url: "" }
     - { index: 2, label: "08_vision-horizon/output/vision-horizon.md — this run's bet and horizon", url: "" }
     - { index: 3, label: "02_explore/output/options.md — the five options considered", url: "" }
     - { index: 4, label: "CLAUDE.md — run identity and sphere of influence", url: "" }

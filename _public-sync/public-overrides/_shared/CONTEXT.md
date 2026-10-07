@@ -10,10 +10,11 @@ Stable across every run. These are **constraints to internalise**, not working a
 | `product-context.md` | Product, customer, commercial and constraint context | `00_setup` fills it; `01_frame`, `05_pressure-test` and `08_vision-horizon` read it |
 | `setup-questionnaire.md` | The questions that fill `product-context.md` fast | `00_setup` only |
 | `decision-log.md` | Append-only record of calls made and why | Written by `03`, `06`, `07` |
+| `prototype-target.md` | Which prototyping tool the handoffs brief, and its conventions. Blank = brief a human designer | `10_prototype-handoff`, `101-prototype-handoff` |
 
 Not shipped here, but referenced by `RUNBOOK.md` if you want them: a source brief for your own
-accelerator/programme, a hard-dates `timeline.md`, and a report design system / prototype-handoff
-contract if you build (or already have) a rendering or prototyping tool downstream. Those are
+accelerator/programme, a hard-dates `timeline.md`, and a report design system if you build (or
+already have) a rendering tool downstream. Those are
 specific to your organisation's tooling — add them here once you have them, following the shape of
 the files already in this folder.
 

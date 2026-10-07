@@ -8,7 +8,7 @@ Two things, deliberately separate:
 |---|---|---|
 | Horizon | Next 1–3 months | 12 months |
 | Artefact | Prototype + rationale | Narrative arc + capability sequence |
-| Decision | "Do we build this?" | "Where is this part of B4B going?" |
+| Decision | "Do we build this?" | "Where is this part of the product going?" |
 
 The source brief produces only the left column. Stage `08_vision-horizon` produces the right one.
 Skip it and this project fails at its actual purpose — the team believing there is a vision.
@@ -20,11 +20,10 @@ CLAUDE.md                 L0 routing
 CONTEXT.md                L1 this file
 _shared/                  L3 factory — rules, context, the brief. Stable across runs.
 _template/                the method, blank. Copy per problem space.
-01-company-acquisition/   instance: a full pipeline, own CLAUDE.md + CONTEXT.md
-02-company-guardrails/    instance
+NN-<slug>/                instance (a run): a full pipeline, own CLAUDE.md + CONTEXT.md
 99-vision-synthesis/      terminal: combines runs into one vision
 100-report/               terminal, optional: renders the vision as a stakeholder asset
-101-prototype-handoff/    terminal, optional: briefs the prototyping lab off the vision
+101-prototype-handoff/    terminal, optional: briefs the prototyping tool off the vision
 ```
 
 Each run is self-contained. Runs share nothing except `_shared/`. Method and instance live apart —
@@ -50,8 +49,8 @@ level or vision level. Nothing downstream waits on them.
 They exist because `08` and `99` produce arguments in markdown, and markdown does neither of the
 two things a position needs to survive: it doesn't hold its structure in a stakeholder room, and it
 can't be looked at. `09`/`100` renders the argument as a self-contained HTML asset with its
-evidence folded underneath. `10`/`101` converts it into briefs the B4B Discovery Lab can build a
-look-and-feel UI from.
+evidence folded underneath. `10`/`101` converts it into briefs the prototyping tool named in
+`_shared/prototype-target.md` can build a look-and-feel UI from.
 
 **Neither asserts anything new.** If a report or a brief is wrong, the stage that produced the
 argument is wrong. Fix it there.
@@ -60,7 +59,7 @@ argument is wrong. Fix it there.
 |---|---|---|
 | Render | `NN-<run>/09_report/` | `100-report/` |
 | Prototype brief | `NN-<run>/10_prototype-handoff/` | `101-prototype-handoff/` |
-| Scope of claim | that run's sphere of influence | all of B4B |
+| Scope of claim | that run's sphere of influence | the whole product |
 | Source | `08_vision-horizon/output/` | `99-vision-synthesis/output/` |
 
 ## Where your attention goes

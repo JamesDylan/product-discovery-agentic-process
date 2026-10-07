@@ -23,7 +23,7 @@ No option is judged here. If the user starts ranking, stop them.
    - Progressive (earn it over time) *vs* upfront
    - Individual *vs* network (use the org graph)
    - Product *vs* incentive *vs* policy
-2. **Mine what exists.** B4B patterns worth extending, and analogous experiences outside travel.
+2. **Mine what exists.** Existing product patterns worth extending, and analogous experiences outside travel.
    The run's `CLAUDE.md` names where to look for this problem space specifically.
 3. **Use AI to broaden, not polish.** Argue for the option the pair likes least. Ask what a
    competitor with no legacy would do. Ask what is obvious in hindsight.

@@ -4,9 +4,9 @@ Pipeline workspace. Fill this header when instantiating the run.
 
 ## Identity
 - **Problem space:** <one line>
-- **Sphere of influence:** <which part of B4B this run owns a point of view over — defines the boundary of the 08 vision claim>
+- **Sphere of influence:** <which part of the product this run owns a point of view over — defines the boundary of the 08 vision claim>
 - **Pair:** Product — <name> · Design — <name>
-- **Owner of the 12-month view:** <name — not James by default>
+- **Owner of the 12-month view:** <name — not the workspace owner by default>
 
 ## Questions in scope
 1.

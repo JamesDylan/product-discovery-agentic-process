@@ -30,7 +30,7 @@ Ranked by who feels it:
 ## Customer outcome vs business outcome
 
 - Customer: money already spent gets used, without anyone administering it.
-- Business: a defensible reason for a company to route more volume through B4B — recovered credit
+- Business: a defensible reason for a company to route more volume through the product — recovered credit
   value is the most legible saving in corporate travel.
 
 They align, which is unusual and worth exploiting.

@@ -16,7 +16,7 @@ covers how to run the process with people: the order, who is involved, and what 
 | # | What | How | Output |
 |---|---|---|---|
 | 1 | Pick the problem | One sentence, plus a short slug (`expense-capture`). Check no existing run already covers it — if one does, work in that run | — |
-| 2 | Shared context *(first run only)* | Check `_shared/b4b-context.md`, `house-view.md` and `timeline.md` are filled and current. See README → Full setup | — |
+| 2 | Shared context *(first run only)* | Check `_shared/product-context.md`, `house-view.md` and `timeline.md` are filled and current. See README → Full setup | — |
 | 3 | Create the run | `new <slug>` | `NN-<slug>/CLAUDE.md` filled |
 | 4 | Setup | `work <run>/00_setup` — skippable for small or solo runs | `inventory.md` |
 | 5 | **Kickoff** | **Live meeting.** Name the owner of the 12-month view out loud | — |
@@ -66,7 +66,7 @@ Part 1 tells you what to do. This part tells you what to watch for while you do 
 **Do:**
 
 1. If not done yet for this workspace: answer `_shared/setup-questionnaire.md` and write the answers
-   into `_shared/b4b-context.md`.
+   into `_shared/product-context.md`.
 2. List what exists: research (mark anything older than one year), Productboard, analytics, earlier
    designs, design-system assets, and experts.
 3. Check you can **open** each item. You are testing access, not reading the content. The common
@@ -205,7 +205,7 @@ slip.** This is the main deliverable of the whole process. If time runs short, c
 > - **Forced AI:** if AI is not central to the bet, say so plainly. A forced AI story is worse than
 >   no AI story.
 
-**Done when:** someone who works on B4B, but not on this run, can hear the one sentence and
+**Done when:** someone who works on the product, but not on this run, can hear the one sentence and
 disagree with it.
 
 ## Stages 09 and 10 — Report and prototype handoff (optional)
@@ -248,7 +248,8 @@ click, on screen and on paper.
 
 ### `10_prototype-handoff`
 
-**What it does:** turns the position into a brief that the B4B Discovery Lab can build from. It
+**What it does:** turns the position into a brief that the prototyping tool named in
+`_shared/prototype-target.md` can build from. It
 writes the instructions, not the prototype. The target is a mid-fidelity UI shell that uses the
 right components, so it looks and feels right. **It is not a working prototype.** Each screen
 answers one question that could be proven wrong. If a horizon has no sourced moment that can be
@@ -258,24 +259,21 @@ shown on screen, it gets no screen.
 It asks you one question at a time about anything it cannot find clearly in this run's files:
 
 - the exact on-screen text, if the vision file does not give the wording
-- which lab persona to use
+- which of the tool's personas to use
 - whether a new data fixture is needed
-- the `productArea` for the hub entry
-- the `owner:` value (see below — this must be exact)
+- the area / taxonomy tag for the hub entry
+- the owner value (see below — this must be exact)
 - the slug, if there is more than one sensible option
 
 Do not let Claude guess these and present them as decided. An early run that skipped this checklist
 produced a brief with a made-up persona, a made-up booking and made-up ad text. It all looked
 believable, and none of it came from the owner.
 
-**Before you run it — check the owner's exact git name in the lab repo:**
-
-Ask Claude: *"Run `git config user.name` in the lab folder"* (`Tools/b4b-discovery-lab` inside
-your copy of the `poc-b4b-discovery-lab` repo). Use the exact text it prints as the `owner:` value.
-
-Check it **in the lab repo**, not in this workspace and not in your global settings — they can be
-different. The lab only allows future edits to a screen when this name matches exactly. If it is
-wrong, the lab's write-guard blocks edits later without a clear error, long after this step.
+**Before you run it — check the owner's exact name, in the form the tool expects.**
+`_shared/prototype-target.md` says what that is (for example, `git config user.name` run inside the
+tool's repo — not this workspace, not your global settings; they can differ). Some tools only allow
+later edits to a screen when this name matches exactly, and fail without a clear error if it
+doesn't. If `prototype-target.md` is blank, the stage writes plain design briefs instead.
 
 **Output:** `prototype-briefs/<slug>.md` and `HANDOFF.md`, in `10_prototype-handoff/output/`.
 
@@ -285,7 +283,7 @@ as a question, not as a feature description.
 ### Top-level versions: `100-report` and `101-prototype-handoff`
 
 The same two steps also exist at the workspace root, as `100-report/` and `101-prototype-handoff/`.
-They work from the combined B4B vision (stage `99`) instead of one run. Use the run-level versions
+They work from the combined vision (stage `99`) instead of one run. Use the run-level versions
 when a screen belongs to one run's sphere of influence. Use the top-level versions when it spans
 two or more.
 
@@ -301,7 +299,7 @@ through-line that no single run found on its own.
 is committed and what is aspirational, honestly.** Presenting an aspiration as a commitment is the
 fastest way to lose that audience.
 
-**The real test:** after reading it, could a B4B engineer say what B4B is becoming? The quality of
+**The real test:** after reading it, could an engineer on the product say what it is becoming? The quality of
 the analysis does not matter if it does not change what the team believes. That belief is the
 deliverable.
 

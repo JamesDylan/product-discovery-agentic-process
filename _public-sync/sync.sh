@@ -25,10 +25,20 @@ mkdir -p "$PUBLIC_DIR"
 # Add a new path here only if you're sure it contains no business-specific content — check with
 # `grep -rniE 'serko|b4b|james|<real run names>' <path>` first.
 MECHANICAL_PATHS=(
+  "CLAUDE.md"
+  "CONTEXT.md"
+  "README.md"
+  "RUNBOOK.md"
   "_template"
   "_eval"
   "_shared/operating-principles.md"
   "eval"
+  "99-vision-synthesis/CLAUDE.md"
+  "99-vision-synthesis/CONTEXT.md"
+  "100-report/CLAUDE.md"
+  "100-report/CONTEXT.md"
+  "101-prototype-handoff/CLAUDE.md"
+  "101-prototype-handoff/CONTEXT.md"
 )
 
 transform() {
@@ -62,7 +72,7 @@ for p in "${MECHANICAL_PATHS[@]}"; do
       rel="${f#./}"
       # Never ship generated eval reports or OS cruft even if someone adds them later.
       case "$rel" in
-        _eval/report/*|*.DS_Store) continue ;;
+        _eval/report/*|_eval/cases/*|*.DS_Store) continue ;;
       esac
       dest="$PUBLIC_DIR/$rel"
       mkdir -p "$(dirname "$dest")"
@@ -76,12 +86,13 @@ for p in "${MECHANICAL_PATHS[@]}"; do
     dest="$PUBLIC_DIR/$p"
     mkdir -p "$(dirname "$dest")"
     transform < "$p" > "$dest"
+    [ -x "$p" ] && chmod +x "$dest"   # keep ./eval executable
   fi
 done
 
-# The 10_prototype-handoff stage is too coupled to private tooling for a mechanical transform —
-# it's hand-maintained in public-overrides/ and copied verbatim below, overwriting whatever the
-# mechanical pass just produced for that one file.
+# public-overrides/ now holds only the blank _shared/ files the public repo ships in place of the
+# real ones. Method files are generic at source (Step 2 of engine-split-plan.md), so they are
+# copied mechanically above and the transform should change nothing in them.
 
 echo "== Overwriting with hand-maintained public-only files =="
 while IFS= read -r -d '' f; do

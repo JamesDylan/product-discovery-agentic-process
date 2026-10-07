@@ -73,7 +73,7 @@ surface), but it's also the only one that tests whether the whole premise — "w
 
 ## Interrogate
 
-- **Which option came first, and what does it stop you seeing?** Option 1 — it's `frame.md`'s own "cut." Its existence is why option 2 (fix the ask itself) got explicitly deprioritized before any option was evaluated, and it's easy to skip straight past option 5's harder question: whether marketing-email consent is even the right lever, versus a symptom of the same funnel gaps `b4b-context.md` already documents (invite-acceptance, activation).
+- **Which option came first, and what does it stop you seeing?** Option 1 — it's `frame.md`'s own "cut." Its existence is why option 2 (fix the ask itself) got explicitly deprioritized before any option was evaluated, and it's easy to skip straight past option 5's harder question: whether marketing-email consent is even the right lever, versus a symptom of the same funnel gaps `product-context.md` already documents (invite-acceptance, activation).
 - **What does this look like if the user does nothing at all?** Option 5 — the user takes no
   consent action and still gets reached, because the mechanism no longer runs through opt-in email.
 - **The politically/technically inconvenient one:** option 5, explicitly. It moves scope onto

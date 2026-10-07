@@ -1,4 +1,4 @@
-# B4B 12-Month Vision — How This Works
+# 12-Month Vision — How This Works
 
 Each folder is one step of the work. Each step folder holds its own instructions (`CONTEXT.md`) and
 an `output/` folder. Open the workspace in Claude, name the step, and Claude does that step only —
@@ -59,7 +59,7 @@ Skip it if another run has already done it.
 
 | File | What to do | Time |
 |---|---|---|
-| `b4b-context.md` | Product, customers, numbers, constraints. Filled by stage `00` (below) | 15–30 min |
+| `product-context.md` | Product, customers, numbers, constraints. Filled by stage `00` (below) | 15–30 min |
 | `house-view.md` | Your opinion of what good looks like. Write it yourself — Claude cannot | 30 min |
 | `timeline.md` | Check the dates are for the current cycle | 2 min |
 | Everything else | Already written. `_shared/CONTEXT.md` says what each file is for | — |
@@ -75,7 +75,7 @@ nothing for it — an empty heading misleads later stages.
 
 **3. Stage 00 — `work <your-run>/00_setup`**
 
-Claude walks the setup questionnaire with you, updates `_shared/b4b-context.md`, and lists which
+Claude walks the setup questionnaire with you, updates `_shared/product-context.md`, and lists which
 assets you can and cannot open. It will stop you if you start solving the problem — that boundary
 is the point. Skippable for small or solo runs.
 
@@ -107,7 +107,7 @@ RUNBOOK.md       facilitator's guide: roles, each stage in detail, what goes wro
 _shared/         background every stage uses. Write once, every run improves
 _template/       the blank method. Copy it to start a run
 NN-<run>/        one problem area going through the stages
-99-, 100-, 101-  combine runs into one vision; optionally render it or brief the lab
+99-, 100-, 101-  combine runs into one vision; optionally render it or brief the prototyping tool
 _eval/, eval     the self-check
 ```
 
@@ -121,18 +121,18 @@ check) and an `output/` folder. A file in `output/` means that stage is done.
 
 ## 1. What this is
 
-A shared workspace that takes one B4B problem area from "we don't really know" to two things:
+A shared workspace that takes one product problem area from "we don't really know" to two things:
 
 1. **A product and design direction** for the next 1–3 months, ready for leadership to decide on.
-2. **A 12-month view** of where that part of B4B is going.
+2. **A 12-month view** of where that part of the product is going.
 
 The workspace is not a place to store documents. **It is the process itself.**
 
 ## 2. Why we are doing this
 
 The near-term product work is strong. What is missing is the 12-month picture. That gap has a real
-cost: people in the team do not believe B4B has a direction, and a competing internal story can
-fill the space with noise that B4B has no answer to.
+cost: people in the team do not believe the product has a direction, and a competing internal story
+can fill the space with noise that the product has no answer to.
 
 So the goal is not a document. **The goal is that people believe there is a direction.** A vision
 that is well argued but changes nobody's mind has failed.
@@ -147,7 +147,7 @@ and defend it without waiting for permission.
 | ----------------- | ------------------------------------ | --------------------------------------- |
 | **Time horizon**  | Next 1–3 months                      | 12 months                               |
 | **What you make** | A prototype and the reasoning behind it | A story of where it goes, and the order capabilities arrive in |
-| **Question**      | "Do we build this?"                  | "Where is this part of B4B going?"      |
+| **Question**      | "Do we build this?"                  | "Where is this part of the product going?" |
 
 A perfect three-day sprint on one feature gives you the left column only — and the team still says
 there is no vision. Stage `08_vision-horizon` produces the right column. It is not optional for
@@ -172,7 +172,7 @@ to work from. `RUNBOOK.md` has the full detail on each one.
 | `07_engineering-refinement` | Turn the decision into something teams can plan against                   | `solution-scope.md` |
 | `08_vision-horizon`         | Turn the solution into a 12-month story                                   | `vision-horizon.md` |
 | `09_report` *(optional)*    | Turn the position into a page people will believe                         | `vision-report.html` |
-| `10_prototype-handoff` *(optional)* | Turn the position into briefs the prototyping lab can build from  | `prototype-briefs/*.md` |
+| `10_prototype-handoff` *(optional)* | Turn the position into briefs the prototyping tool can build from | `prototype-briefs/*.md` |
 
 Stages `06` and `07` are live meetings with people. Claude helps you prepare and write them up, but
 the decisions happen in the room.
@@ -222,7 +222,7 @@ real-time work or many people in one run at once. It organises thinking; it does
 **To watch for in this workspace:**
 
 - **A thin `house-view.md`** means generic output. This is the most important file to keep sharp.
-- **An out-of-date `b4b-context.md`** weakens every later stage.
+- **An out-of-date `product-context.md`** weakens every later stage.
 - **A placeholder owner** turns the run into one person steering alone. Name someone at Kickoff.
 - **A short window limits pressure-testing.** `05` will lean on existing evidence. Say so at the
   playback.
@@ -240,7 +240,7 @@ thinking stays shallow. If a stage is not helping, say so and merge it into anot
 
 If not, the process has only created a bottleneck with better filing.
 
-For the vision itself: say the one-sentence version to someone on B4B but not on this run, and ask
+For the vision itself: say the one-sentence version to someone on the product but not on this run, and ask
 them to disagree. If they cannot, it is not a position yet.
 
 ## 9. Rules that do not change
@@ -256,7 +256,7 @@ them to disagree. If they cannot, it is not a position yet.
 
 | Term | Meaning |
 | --- | --- |
-| **Run** | One problem area going through the stages, in its own numbered folder (e.g. `01-company-acquisition`) |
+| **Run** | One problem area going through the stages, in its own numbered folder (e.g. `01-<slug>`) |
 | **Stage** | One numbered folder inside a run, with one job |
 | **Workspace root** | The top folder — the one that contains `README.md`, `RUNBOOK.md` and `_template` |
 | **`output/` folder** | Where each stage saves its file. A file here means the stage is done |
@@ -266,7 +266,7 @@ them to disagree. If they cannot, it is not a position yet.
 | **`_template`** | The blank method. Copy it to start a new run |
 | **Decision-ready** | Good enough for leadership to make a real decision |
 | **Plan-ready** | Product, Design and Engineering can all say "I can plan against this" |
-| **House view** | The team's opinion of what good looks like in B4B. `_shared/house-view.md` |
+| **House view** | The team's opinion of what good looks like for the product. `_shared/house-view.md` |
 | **Walk test** | Can a fresh assistant find its way, do the work and report status from the files alone? |
 | **Slug** | A short, lowercase, hyphenated name for a run, e.g. `expense-capture` |
 

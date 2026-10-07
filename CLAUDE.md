@@ -1,17 +1,17 @@
-# B4B 12-Month Vision — Workspace
+# 12-Month Vision — Workspace
 
-Umbrella workspace. Two problem-space pipelines share one reference layer and converge into one
-vision. This file is a catalog: it points at things and holds almost nothing.
+Umbrella workspace. Problem-space pipelines (runs, `NN-<slug>/`) share one reference layer and
+converge into one vision. The product and company are named in `_shared/product-context.md`, never
+here. This file is a catalog: it points at things and holds almost nothing.
 
 ## Route by task
 
 | I am… | Go to |
 |---|---|
-| Working Company Acquisition | `01-company-acquisition/CONTEXT.md` |
-| Working Company Guardrails | `02-company-guardrails/CONTEXT.md` |
+| Working a run | `NN-<slug>/CONTEXT.md` — list runs with `ls -d [0-9][0-9]-*/` |
 | Combining finished runs into the vision | `99-vision-synthesis/CONTEXT.md` |
-| Rendering the B4B vision as a stakeholder asset | `100-report/CONTEXT.md` |
-| Briefing the prototyping lab off the B4B vision | `101-prototype-handoff/CONTEXT.md` |
+| Rendering the vision as a stakeholder asset | `100-report/CONTEXT.md` |
+| Briefing the prototyping tool off the vision | `101-prototype-handoff/CONTEXT.md` |
 | Rendering or briefing **one run** on its own | that run's `09_report/` or `10_prototype-handoff/` |
 | Starting a new problem space | `new <slug>` — see Commands below |
 | Looking for rules, brief, context, decisions | `_shared/CONTEXT.md` |
