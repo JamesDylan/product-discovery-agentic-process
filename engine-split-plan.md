@@ -1,6 +1,6 @@
 # Engine / instance split: findings and plan
 
-Date: 2026-10-07. Author: James Scholz. Status: **agreed direction. Steps 1–2 done (2026-10-08). Step 3 in progress: public eval passes; manifest, history rewrite and `v0.1` still to do.**
+Date: 2026-10-07. Author: James Scholz. Status: **agreed direction. Steps 1–3 done locally (2026-10-08); `v0.1` awaits James's force-push. Step 4 next.**
 
 **Bottom line.** There are three copies of the folder-as-agent pipeline, and they have already drifted.
 The root cause is that company-specific content is written into the method files, so every sync has to
@@ -163,8 +163,23 @@ Carried into Step 3:
       figures replaced; synced mechanically). `accelerator-brief.md` and `timeline.md` ship as blanks.
       `prototype-brief.template.md` stays instance-only: it is the lab's `/new-prototype` contract, and
       only `prototype-target.md` points at it, so the engine needs no brief template.
-- [ ] Public still has `.claude/skills/run-pipeline/` — `sync.sh` never deletes. Remove by hand when
-      syncing public for real.
+- [x] Stale `run-pipeline` skill removed from public.
+
+### Step 3: done locally 2026-10-08 (private branch `step3-manifest`; public `main` + tag `v0.1` not pushed)
+
+- [x] `_eval/manifest.py` (build / check / install) and `pull-engine.sh <tag> [--force]`. Owned files are
+      hashed in `engine.manifest`; `_shared/` starters are seeded only if missing; files the engine drops are
+      deleted on pull; the pull refuses if an instance edited an engine file. Tested: self-update of
+      `pull-engine.sh`, deletion propagation, `--force`, fresh empty instance.
+- [x] `./eval` fails `engine.edited` when an instance changes an engine file (only if `engine.manifest` exists,
+      so the private folder is unaffected until Step 4).
+- [x] Public history rewritten: both commits now authored `3697962+JamesDylan@users.noreply.github.com`.
+      Pre-rewrite state kept on local branch `backup/pre-rewrite`.
+- [x] Public synced, manifest built, committed and tagged `v0.1`. **Done-when:** fresh clone of `v0.1` →
+      `./eval` 0 fails.
+- [ ] James: force-push public `main` and push tag `v0.1`; merge `step3-manifest` in private.
+- Note: GitHub can keep old commit SHAs reachable for a while after a force-push. Low risk here (only an
+      email), but don't rely on the rewrite for anything sensitive.
 
 Path notes for later steps: `sync.sh` defaults to `../discovery-pipeline`, a sibling path. The private
 folder is now in `Serko/` and public is in `personal/`, so **pass the path explicitly** until Step 4
