@@ -1,6 +1,6 @@
 # Engine / instance split: findings and plan
 
-Date: 2026-10-07. Author: James Scholz. Status: **agreed direction. Steps 1–2 done (2026-10-08; Step 2 on branch `step2-debrand`). Step 3 next.**
+Date: 2026-10-07. Author: James Scholz. Status: **agreed direction. Steps 1–2 done (2026-10-08). Step 3 in progress: public eval passes; manifest, history rewrite and `v0.1` still to do.**
 
 **Bottom line.** There are three copies of the folder-as-agent pipeline, and they have already drifted.
 The root cause is that company-specific content is written into the method files, so every sync has to
@@ -137,9 +137,9 @@ Carried forward:
 - [ ] **Before tagging `v0.1` (Step 3):** rewrite `discovery-pipeline` history to replace the
       `James.Scholz+Serko@serko.com` / `james.scholz@serko.com` author emails (decided yes, 2026-10-08).
 
-### Step 2: done 2026-10-08 (branch `step2-debrand`, not yet merged)
+### Step 2: done 2026-10-08 (merged to `main`)
 
-- [x] `_shared/b4b-context.md` → `product-context.md`; every reference updated, including run folders.
+- [x] `b4b-context.md` renamed to `product-context.md`; every reference updated, including run folders.
       Its AI-narrative heading is now "Competitive / positioning context", which `08` reads.
 - [x] `_template/`, `CLAUDE.md`, `CONTEXT.md`, `README.md`, `RUNBOOK.md` and the `99`/`100`/`101` contracts name
       no company. Routing is `NN-<slug>`. `99` reads every run's `08` output by glob; output renamed
@@ -158,11 +158,13 @@ Carried forward:
 Carried into Step 3:
 - [ ] `02-company-guardrails/CLAUDE.md` has an unfilled identity (2 `./eval` fails, pre-existing). Fill it or
       delete the run.
-- [ ] Public `./eval` fails 12 checks (was 15). All are engine files pointing at `_shared/` files that only
-      exist in the instance: `accelerator-brief.md`, `timeline.md`, `report-design-system.md`,
-      `report-content-schema.md`, `prototype-brief.template.md`. Decide which are engine (likely the report
-      schema, design system and brief template) and which ship as blanks.
-- [ ] Public still has `.claude/skills/run-pipeline/` — `sync.sh` never deletes. Remove by hand.
+- [x] Public `./eval` passes (0 fails, was 15) — done 2026-10-08 on branch `step3-shared-engine`.
+      `report-design-system.md` and `report-content-schema.md` are now engine files (de-branded; example
+      figures replaced; synced mechanically). `accelerator-brief.md` and `timeline.md` ship as blanks.
+      `prototype-brief.template.md` stays instance-only: it is the lab's `/new-prototype` contract, and
+      only `prototype-target.md` points at it, so the engine needs no brief template.
+- [ ] Public still has `.claude/skills/run-pipeline/` — `sync.sh` never deletes. Remove by hand when
+      syncing public for real.
 
 Path notes for later steps: `sync.sh` defaults to `../discovery-pipeline`, a sibling path. The private
 folder is now in `Serko/` and public is in `personal/`, so **pass the path explicitly** until Step 4

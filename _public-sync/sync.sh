@@ -32,6 +32,8 @@ MECHANICAL_PATHS=(
   "_template"
   "_eval"
   "_shared/operating-principles.md"
+  "_shared/report-design-system.md"
+  "_shared/report-content-schema.md"
   "eval"
   "99-vision-synthesis/CLAUDE.md"
   "99-vision-synthesis/CONTEXT.md"

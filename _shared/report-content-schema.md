@@ -13,7 +13,7 @@ The report stage runs in two places, against two different argument documents:
 | Stage | Source document | Scope of the claim |
 |---|---|---|
 | `NN-<run>/09_report` | `../08_vision-horizon/output/vision-horizon.md` | one problem space |
-| `100-report` | `../99-vision-synthesis/output/12-month-vision.md` | all of B4B |
+| `100-report` | `../99-vision-synthesis/output/12-month-vision.md` | the whole product |
 
 Below, **`<source>`** means whichever of those two the stage was pointed at. The schema and the
 design system are identical either way — a single-run report is not a lesser artefact, it is a
@@ -27,7 +27,7 @@ is the failure mode to watch for.
 ```yaml
 document:
   title:        string          # "The Company Layer" — a noun phrase, not a sentence
-  meta_line:    string          # "B4B position & plan · internal · rev. 25 Aug 2026"
+  meta_line:    string          # "Product position & plan · internal · rev. 25 Aug 2026"
   nav:          [{ label, anchor }]          # 6 max. Not every section is in the nav.
 ```
 | Slot | Source |
@@ -114,7 +114,7 @@ numbered_articles:       # C11 — ranked leaks, or the things we build
   ordinal_style: enum[ordinal_words, two_digit]     # "1st" vs "01"
   items: [{ ordinal, title, body, tagline? }]       # 3
   # tagline binds each item to a mechanism, a rival and a target:
-  # "Turns gear 03 · answers Perk's Aug release · target: 19% → 39%"
+  # "Turns gear 03 · answers a rival's Aug release · target: 20% → 35%"
 
 accent_band:             # C12 — a decision or a trade, stated once
   tone: enum[coral, forest]

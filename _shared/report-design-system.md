@@ -322,6 +322,6 @@ generated report that drops them loses the thing that made the original credible
 - `·` as the separator in taglines and meta lines.
 - Emphasis in prose is `<strong>` with an explicit colour and `font-weight:500` on coloured
   grounds — so gold/forest emphasis reads as a **colour** change, not a weight change.
-- Numbers carry their unit and comparator inline: `26.7 vs 2.7` · `+500% YoY` · `€161.5M` · `~11,200`.
-- No em dash in any string that renders to a screen in lab-bound copy (the lab forbids it). The
-  report is not bound by that rule, and uses em dashes freely.
+- Numbers carry their unit and comparator inline: `12.4 vs 3.1` · `+40% YoY` · `€2.3M` · `~4,800` (illustrative).
+- Copy bound for a prototyping tool follows that tool's house style (see `prototype-target.md`).
+  The report is not bound by it, and uses em dashes freely.
