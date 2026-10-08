@@ -98,6 +98,21 @@ report. The local model needs a one-time `./eval doctor`. Details: `_eval/README
 A clean eval proves the plumbing connects. It does not prove the thinking is good — only a real
 person running a stage tells you that.
 
+## Updating the method (engine and instance)
+
+The method is the **engine**: a public repo, released as tags (`v0.1`, …). Your workspace is an
+**instance**: the engine plus your own `_shared/` content and runs. `engine.manifest` lists every
+engine-owned file.
+
+- **Get a new version:** `./pull-engine.sh v0.2`. It replaces engine files, deletes ones the engine
+  dropped, and adds blank `_shared/` starter files only if you don't have them. Your content and runs
+  are never touched. Review with `git status`, then commit.
+- **Don't edit engine files here.** `./eval` fails (`engine.edited`) if you do, and `pull-engine.sh`
+  refuses to run until you revert or pass `--force`. Fix the method upstream in the engine, tag it,
+  then pull.
+- **In the engine repo itself:** after changing the method, run
+  `python3 _eval/manifest.py build --version=vX.Y`, commit, then tag.
+
 ## What's in the folder
 
 ```
@@ -109,6 +124,7 @@ _template/       the blank method. Copy it to start a run
 NN-<run>/        one problem area going through the stages
 99-, 100-, 101-  combine runs into one vision; optionally render it or brief the prototyping tool
 _eval/, eval     the self-check
+engine.manifest, pull-engine.sh   which files are the method, and how to update them
 ```
 
 Inside a run, each stage folder is `NN_name/` with a `CONTEXT.md` (inputs, process, output, human

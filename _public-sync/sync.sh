@@ -35,6 +35,7 @@ MECHANICAL_PATHS=(
   "_shared/report-design-system.md"
   "_shared/report-content-schema.md"
   "eval"
+  "pull-engine.sh"
   "99-vision-synthesis/CLAUDE.md"
   "99-vision-synthesis/CONTEXT.md"
   "100-report/CLAUDE.md"

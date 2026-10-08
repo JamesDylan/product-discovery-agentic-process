@@ -26,11 +26,9 @@ from dataclasses import dataclass, asdict, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-try:
-    import local as local_mod
-except ImportError:  # running from elsewhere
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    import local as local_mod
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import local as local_mod  # noqa: E402
+import manifest as manifest_mod  # noqa: E402
 
 EVAL_DIR = Path(__file__).resolve().parent
 ROOT = EVAL_DIR.parent
@@ -493,9 +491,25 @@ def check_terminals(r: Results) -> None:
                       scope=name, file=f"{name}/{required}")
 
 
+def check_engine_manifest(r: Results) -> None:
+    """Engine files are read-only in an instance. Only runs where engine.manifest exists."""
+    if not (ROOT / manifest_mod.MANIFEST).is_file():
+        return
+    problems = manifest_mod.check(ROOT)
+    for rel_path, problem in problems:
+        r.add("engine.edited", f"engine file {problem}: {rel_path}",
+              scope="engine", file=rel_path,
+              detail="In an instance: revert it (git checkout) and make the fix upstream in the engine, "
+                     "then ./pull-engine.sh the new tag. In the engine itself: run "
+                     "`python3 _eval/manifest.py build` before tagging.")
+    if not problems:
+        r.ok("engine.edited")
+
+
 def run_structure(r: Results) -> None:
     canonical = r.spec["canonical_outputs"]
     tmpl_stages = template_stages()
+    check_engine_manifest(r)
     check_walk(r)
     check_shared_references(r)
     check_terminals(r)
